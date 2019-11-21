@@ -18,6 +18,8 @@ const _SPRITES = {
 	"Ballista": Vector2(288, 672)
 }
 
+var _points:int = 0
+
 func init(data):
 	$Up.text = str(data["up"])
 	$Right.text = str(data["right"])

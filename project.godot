@@ -23,6 +23,10 @@ config/icon="res://icon.png"
 
 Globals="*res://Prototype/Globals.gd"
 
+[display]
+
+window/size/height=650
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

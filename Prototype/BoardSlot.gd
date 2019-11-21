@@ -26,7 +26,6 @@ func set_entity(data, slot_owner):
 	self._entity.init(data)
 	self.add_child(self._entity)
 	self.emit_signal("entity_placed", Vector2(self.board_x, self.board_y), self.data)
-	
 
 func change_colour(new_owner, initializing = false):
 	var flip = false
@@ -44,9 +43,15 @@ func change_colour(new_owner, initializing = false):
 	if flip:
 		self.slot_owner = new_owner
 		self._entity.change_colour(new_owner)
+	
+	return flip
 
 func consume():
 	self.remove_child(self._entity)
 
 func _on_Button_pressed():
 	self.emit_signal("pressed_who", self)
+
+# convenience method, breaks OOP sorta
+func get_capture_points():
+	return self.data["capture_points"]

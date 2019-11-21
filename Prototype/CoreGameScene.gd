@@ -8,6 +8,8 @@ const NUM_CARDS = 5
 var _player_cards = []
 var _opponent_cards = []
 var _current_turn = Turn.Turn.Player
+var _player_points = 0
+var _opponent_points = 0
 
 func _ready():
 	self._pick_cards_into(_player_cards)
@@ -16,6 +18,7 @@ func _ready():
 	$PlayerInventory.init(_player_cards, Turn.Turn.Player)
 	$OpponentInventory.init(_opponent_cards, Turn.Turn.Opponent)
 	$Board.connect("board_clicked", self, "_try_to_play_turn")
+	$Board.connect("points_earned", self, "_on_points_earned")
 	
 func _pick_cards_into(cards):
 	while len(cards) < NUM_CARDS:
@@ -45,6 +48,14 @@ func _try_to_play_turn(slot):
 			$PlayerInventory.selected_card = null
 			$OpponentInventory.selected_card = null
 
+func _on_points_earned(points):
+	if _current_turn == Turn.Turn.Player:
+		_player_points += points
+		$PlayerPoints.text = "Player: " + str(_player_points)
+	else:
+		_opponent_points += points
+		$OpponentPoints.text = "Opponent: " + str(_opponent_points)
+		
 func _rotate_turn():
 	if self._current_turn == Turn.Turn.Player:
 		self._current_turn = Turn.Turn.Opponent

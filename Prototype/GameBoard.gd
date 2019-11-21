@@ -1,6 +1,7 @@
 extends Node2D
 
 signal board_clicked
+signal points_earned
 
 func _ready():
 	# Stop trying to be so clever.
@@ -20,14 +21,24 @@ func _on_entity_placed(coordinates, entity_data):
 	var below_slot = self._get_slot(coordinates.x, coordinates.y + 1)
 	var right_slot = self._get_slot(coordinates.x + 1, coordinates.y)
 	
+	var was_changed = false
+	var capture_points = 0
+	
 	if above_slot != null and above_slot.slot_owner != my_owner and above_slot.data != null and above_slot.data["down"] < entity_data["up"]:
-		above_slot.change_colour(my_owner)
+		was_changed = above_slot.change_colour(my_owner)
+		capture_points = above_slot.get_capture_points()
 	if left_slot != null and left_slot.slot_owner != my_owner and left_slot.data != null and left_slot.data["right"] < entity_data["left"]:
-		left_slot.change_colour(my_owner)
+		was_changed = left_slot.change_colour(my_owner)
+		capture_points = left_slot.get_capture_points()
 	if below_slot != null and below_slot.slot_owner != my_owner and below_slot.data != null and below_slot.data["up"] < entity_data["down"]:
-		below_slot.change_colour(my_owner)
+		was_changed = below_slot.change_colour(my_owner)
+		capture_points = below_slot.get_capture_points()
 	if right_slot != null and right_slot.slot_owner != my_owner and right_slot.data != null and right_slot.data["left"] < entity_data["right"]:
-		right_slot.change_colour(my_owner)
+		was_changed = right_slot.change_colour(my_owner)
+		capture_points = right_slot.get_capture_points()
+	
+	if was_changed:
+		self.emit_signal("points_earned", capture_points)
 	
 func _get_slot(x, y):
 	# Returns null if doesn't exist
