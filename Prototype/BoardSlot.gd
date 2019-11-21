@@ -31,9 +31,10 @@ func change_colour(new_owner, initializing = false):
 	var flip = false
 	
 	if Globals.ENABLE_LIFE_POINTS:
-		if not initializing and self.data["lp"] > 0 and new_owner != self._original_colour:
-			self.data["lp"] -= 1
-			self._entity.update_lp(self.data["lp"])
+		if not initializing and self.data["lp"] > 0:
+			if new_owner != self._original_colour:
+				self.data["lp"] -= 1
+				self._entity.update_lp(self.data["lp"])
 			flip = true
 		elif initializing:
 			flip = true
