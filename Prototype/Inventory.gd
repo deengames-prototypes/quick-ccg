@@ -16,8 +16,7 @@ func init(cards, owner):
 		var slot = self.get_node(control_name)
 		slot.set_entity(card, owner)
 		slot.connect("pressed_who", self, "_on_slot_pressed")
-		
-		slot.change_colour(owner)
+		slot.change_colour(owner, true)
 
 func consume(card):
 	var index = self._cards.find(card)

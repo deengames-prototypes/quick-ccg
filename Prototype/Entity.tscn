@@ -57,3 +57,12 @@ margin_right = 39.0
 margin_bottom = 129.0
 custom_fonts/font = SubResource( 1 )
 text = "9"
+
+[node name="LP" type="Label" parent="."]
+margin_left = 47.0
+margin_top = 56.0
+margin_right = 86.0
+margin_bottom = 129.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 0.376471, 0.376471, 1 )
+text = "3"

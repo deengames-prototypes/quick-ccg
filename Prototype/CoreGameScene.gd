@@ -39,7 +39,7 @@ func _try_to_play_turn(slot):
 		if target_card != null:
 			owning_inventory.consume(target_card)
 			slot.set_entity(target_card, self._current_turn)
-			slot.change_colour(_current_turn)
+			slot.change_colour(_current_turn, true)
 			
 			self._rotate_turn()
 			$PlayerInventory.selected_card = null

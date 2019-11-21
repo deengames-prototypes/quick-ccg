@@ -8,6 +8,7 @@ var slot_owner # Turn.Player or Turn.Opponent
 
 var _clickable = true
 var _entity # Entity instance
+var _original_colour
 
 export var board_x = -1
 export var board_y = -1
@@ -19,6 +20,7 @@ func set_entity(data, slot_owner):
 	# Change into an entity. No longer clickable.
 	self.data = data
 	self.slot_owner = slot_owner
+	self._original_colour = slot_owner
 	self._clickable = false
 	self._entity = Entity.instance()
 	self._entity.init(data)
@@ -26,9 +28,22 @@ func set_entity(data, slot_owner):
 	self.emit_signal("entity_placed", Vector2(self.board_x, self.board_y), self.data)
 	
 
-func change_colour(owner):
-	self.slot_owner = owner
-	self._entity.change_colour(owner)
+func change_colour(new_owner, initializing = false):
+	var flip = false
+	
+	if Globals.ENABLE_LIFE_POINTS:
+		if not initializing and self.data["lp"] > 0 and new_owner != self._original_colour:
+			self.data["lp"] -= 1
+			self._entity.update_lp(self.data["lp"])
+			flip = true
+		elif initializing:
+			flip = true
+	elif new_owner != self._original_colour:
+		flip = true
+		
+	if flip:
+		self.slot_owner = new_owner
+		self._entity.change_colour(new_owner)
 
 func consume():
 	self.remove_child(self._entity)

@@ -23,6 +23,8 @@ func init(data):
 	$Right.text = str(data["right"])
 	$Down.text = str(data["down"])
 	$Left.text = str(data["left"])
+	$LP.text = str(data["lp"])
+	$LP.visible = Globals.ENABLE_LIFE_POINTS
 	$Sprite.region_rect.position = _SPRITES[data["name"]]
 
 func change_colour(owner):
@@ -30,3 +32,6 @@ func change_colour(owner):
 		$ColorRect.color = OPPONENT_COLOUR
 	else:
 		$ColorRect.color = PLAYER_COLOUR
+
+func update_lp(new_lp):
+	$LP.text = str(new_lp)
