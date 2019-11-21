@@ -37,7 +37,7 @@ func change_colour(new_owner, initializing = false):
 			flip = true
 		elif initializing:
 			flip = true
-	elif new_owner != self._original_colour:
+	elif initializing or (new_owner != self._original_colour):
 		flip = true
 		
 	if flip:
