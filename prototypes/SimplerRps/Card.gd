@@ -1,6 +1,7 @@
 extends Node2D
 
-export(String) var affinity = "Triangle"
+export(String) var affinity = "Triangle" # square/circle/triangle
+export(String) var owned_by = "" # player or AI
 export(int) var strength = 1
 export(int) var defense = 1
 
@@ -10,6 +11,8 @@ func set_data(card):
 	self.strength = card["strength"]
 	self.defense = card["defense"]
 	self.affinity = card["affinity"]
+	self.owned_by = ""
+	
 	$Label.text = str(strength) + "/" + str(defense)
 	$Sprite.texture = load("res://" + affinity.to_lower() + ".png")
 

@@ -15,3 +15,18 @@ func _ready():
 		var affinity = TYPES[randi() % len(TYPES)]
 		var card = {"strength": strength, "defense": defense, "affinity": affinity}
 		all_cards.append(card)
+
+func calculate_damage(attacker_card, defender_card):
+	var damage_multiplier = affinity_compare(attacker_card.affinity, defender_card.affinity)
+	var raw_damage = (attacker_card.strength * damage_multiplier) - defender_card.defense
+	return max(raw_damage, 0)
+	
+func affinity_compare(attack_affinity, defend_affinity):
+	if attack_affinity == defend_affinity: return 1 # 1x = normal
+	
+	if (attack_affinity == "Triangle" and defend_affinity == "Circle") or \
+	(attack_affinity == "Circle" and defend_affinity == "Square") or \
+	(attack_affinity == "Square" and defend_affinity == "Triangle"):
+		return 2 # 2x = critical
+	
+	return 0.5 # 0.5x: weak

@@ -7,7 +7,7 @@ signal on_tile_click
 export(int) var tiles_wide = 4
 export(int) var tiles_high = 4
 
-var _tiles = []
+var tiles = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,8 +18,25 @@ func _ready():
 			tile.y = y
 			tile.position = Vector2(tile.x * 64, tile.y * 64)
 			tile.connect("on_click", self, "_on_tile_click", [tile])
-			_tiles.append(tile)
+			tiles.append(tile)
 			add_child(tile)
+			
+func get_adjacencies(tile):
+	var adjacencies = []
+	
+	if tile.x > 0:
+		adjacencies.append(tiles[_tile_index(tile.x - 1, tile.y)])
+	if tile.x < tiles_wide - 1:
+		adjacencies.append(tiles[_tile_index(tile.x + 1, tile.y)])
+	if tile.y > 0:
+		adjacencies.append(tiles[_tile_index(tile.x, tile.y - 1)])
+	if tile.y < tiles_high - 1:
+		adjacencies.append(tiles[_tile_index(tile.x, tile.y + 1)])
+	
+	return adjacencies
+
+func _tile_index(x:int, y:int):
+	return (y * tiles_wide) + x
 
 func _on_tile_click(tile):
 	self.emit_signal("on_tile_click", tile)
