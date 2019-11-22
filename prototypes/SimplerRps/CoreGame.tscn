@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://CoreGame.gd" type="Script" id=1]
 [ext_resource path="res://BattleDeck.tscn" type="PackedScene" id=2]
@@ -9,6 +9,10 @@
 [ext_resource path="res://square.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
 font_data = ExtResource( 4 )
 
 [node name="Node2D" type="Node2D"]
@@ -23,6 +27,7 @@ position = Vector2( 192, 64 )
 position = Vector2( 544, 0 )
 
 [node name="Notice" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Label" type="Label" parent="Notice"]
 margin_left = 308.951
@@ -59,3 +64,10 @@ texture = ExtResource( 7 )
 [node name="Sprite5" type="Sprite" parent="Notice"]
 position = Vector2( 368.535, 520.071 )
 texture = ExtResource( 5 )
+
+[node name="StatusLabel" type="Label" parent="."]
+margin_left = 70.0
+margin_right = 538.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 2 )
+text = "latest news goes here!"

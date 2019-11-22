@@ -16,6 +16,9 @@ func set_data(card):
 	$Label.text = str(strength) + "/" + str(defense)
 	$Sprite.texture = load("res://" + affinity.to_lower() + ".png")
 
+func recolour_dark():
+	$ColorRect.color.a = 0.5
+
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		var clicked:InputEventMouseButton = event

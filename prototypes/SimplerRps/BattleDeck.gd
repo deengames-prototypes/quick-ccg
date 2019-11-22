@@ -6,23 +6,27 @@ signal card_selected
 export var size = 8
 
 var selected # Card
-var tiles = []
+var tiles = [] # should be called "cards"
 
 func _ready():
 	for i in range(size):
-		var card = Globals.all_cards[randi() % len(Globals.all_cards)]
-		card = parse_json(to_json(card)) # cheap way to copy it
-		var tile = Card.instance()
-		tile.set_data(card)
-		tile.position = Vector2(0, i * 64)
+		var card_data = Globals.all_cards[randi() % len(Globals.all_cards)]
+		card_data = parse_json(to_json(card_data)) # cheap way to copy it
+		var card = Card.instance()
+		card.set_data(card_data)
+		card.position = Vector2(0, i * 64)
 		# can send "card" (data) instead
-		tile.connect("on_click", self, "_set_selected_card", [tile])
-		add_child(tile)
-		tiles.append(tile)
+		card.connect("on_click", self, "_set_selected_card", [card])
+		add_child(card)
+		tiles.append(card)
 
 func own_cards(owned_by):
-	for tile in tiles:
-		tile.owned_by = owned_by
+	for card in tiles:
+		card.owned_by = owned_by
+
+func recolour_dark():
+	for card in tiles:
+		card.recolour_dark()
 
 func remove_card(card):
 	# UGH, typecasting: card(Node2D) vs card(script instance)

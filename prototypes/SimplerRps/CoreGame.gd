@@ -5,6 +5,7 @@ var _player_card
 func _ready():
 	$PlayerDeck.own_cards("Player")
 	$AiDeck.own_cards("AI")
+	$AiDeck.recolour_dark()
 	$PlayerDeck.connect("card_selected", self, "_on_player_card_select")
 	$Board.connect("on_tile_click", self, "_on_player_tile_click")
 
@@ -16,7 +17,7 @@ func _on_player_tile_click(tile):
 		$PlayerDeck.remove_card(_player_card)
 		tile.set_occupant(_player_card)
 		_player_card = null
-		yield(get_tree().create_timer(0.5), 'timeout')
+		yield(get_tree().create_timer(1), 'timeout')
 		_ai_do_something()
 
 # Strategy: pick a random card, pick the best move, play it.
@@ -43,7 +44,6 @@ func _ai_do_something():
 			if total_score > best_score:
 				best_score = total_score
 				best = tile
-				print("new best of " + str(best_score) + "  at " + str(best.x) + ", " + str(best.y))
 	
 	$AiDeck.remove_card(card_tile)
 	best.set_occupant(card_tile)

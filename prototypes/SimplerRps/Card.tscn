@@ -29,6 +29,12 @@ centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 64, 64 )
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 64.0
+margin_bottom = 64.0
+mouse_filter = 2
+color = Color( 0.501961, 0, 0, 0 )
+
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 16, 16 )
 texture = ExtResource( 2 )

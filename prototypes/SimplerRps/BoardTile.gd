@@ -17,4 +17,4 @@ func set_occupant(card):
 	self.occupant = card
 	card.position = Vector2(0, 0)
 	self.add_child(card)
-	self.remove_child($Sprite) # ??? needed to display
+	#self.remove_child($Sprite) # ??? needed to display
