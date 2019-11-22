@@ -18,6 +18,7 @@ func _ready():
 			tile.y = y
 			tile.position = Vector2(tile.x * 64, tile.y * 64)
 			tile.connect("on_click", self, "_on_tile_click", [tile])
+			tile.connect("occupied", self, "_on_tile_occupied", [tile])
 			tiles.append(tile)
 			add_child(tile)
 			
@@ -40,3 +41,15 @@ func _tile_index(x:int, y:int):
 
 func _on_tile_click(tile):
 	self.emit_signal("on_tile_click", tile)
+
+func _on_tile_occupied(tile):
+	var me = tile.occupant
+	var adjacencies = get_adjacencies(tile)
+	
+	for adjacent in adjacencies:
+		var target = adjacent.occupant
+		if target != null and target.owned_by != me.owned_by:
+			var damage = Globals.calculate_damage(me, target)
+			if damage > target.defense:
+				target.owned_by = me.owned_by
+				target.recolour_to_owner()

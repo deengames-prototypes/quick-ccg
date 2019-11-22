@@ -18,7 +18,7 @@ func _ready():
 
 func calculate_damage(attacker_card, defender_card):
 	var damage_multiplier = affinity_compare(attacker_card.affinity, defender_card.affinity)
-	var raw_damage = (attacker_card.strength * damage_multiplier) - defender_card.defense
+	var raw_damage = attacker_card.strength * damage_multiplier
 	return max(raw_damage, 0)
 	
 func affinity_compare(attack_affinity, defend_affinity):
