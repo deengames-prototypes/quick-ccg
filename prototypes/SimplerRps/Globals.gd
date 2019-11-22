@@ -12,7 +12,7 @@ func _ready():
 		# [1..max]
 		var strength = (randi() % MAX_VALUE) + 1
 		var defense = (randi() % MAX_VALUE) + 1
-		var type = TYPES[randi() % len(TYPES)]
-		var card = {"strength": strength, "defense": defense, "type": type}
+		var affinity = TYPES[randi() % len(TYPES)]
+		var card = {"strength": strength, "defense": defense, "affinity": affinity}
 		all_cards.append(card)
 		print(str(card))
