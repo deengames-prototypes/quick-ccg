@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+period = 32.0
+
+[sub_resource type="NoiseTexture" id=2]
+width = 64
+height = 64
+seamless = true
+noise = SubResource( 1 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = SubResource( 2 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 64, 64 )
