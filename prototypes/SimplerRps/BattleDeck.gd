@@ -24,13 +24,12 @@ func own_cards(owned_by):
 	for card in tiles:
 		card.owned_by = owned_by
 
-func recolour_dark():
+func recolour_to_owner():
 	for card in tiles:
-		card.recolour_dark()
+		card.recolour_to_owner()
 
 func remove_card(card):
 	# UGH, typecasting: card(Node2D) vs card(script instance)
-	
 	for i in range(len(tiles)):
 		var c = tiles[i]
 		if card.strength == c.strength and card.defense == c.defense and card.affinity == c.affinity:

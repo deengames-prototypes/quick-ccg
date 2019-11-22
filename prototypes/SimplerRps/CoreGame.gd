@@ -5,7 +5,7 @@ var _player_card
 func _ready():
 	$PlayerDeck.own_cards("Player")
 	$AiDeck.own_cards("AI")
-	$AiDeck.recolour_dark()
+	$AiDeck.recolour_to_owner()
 	$PlayerDeck.connect("card_selected", self, "_on_player_card_select")
 	$Board.connect("on_tile_click", self, "_on_player_tile_click")
 
