@@ -15,4 +15,3 @@ func _ready():
 		var affinity = TYPES[randi() % len(TYPES)]
 		var card = {"strength": strength, "defense": defense, "affinity": affinity}
 		all_cards.append(card)
-		print(str(card))
