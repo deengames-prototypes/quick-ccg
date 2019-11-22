@@ -8,9 +8,9 @@ export var size = 8
 var selected # Card
 var tiles = [] # should be called "cards"
 
-func _ready():
-	for i in range(size):
-		var card_data = Globals.all_cards[randi() % len(Globals.all_cards)]
+func set_cards(cards):
+	for i in range(len(cards)):
+		var card_data = cards[i]
 		card_data = parse_json(to_json(card_data)) # cheap way to copy it
 		var card = Card.instance()
 		card.set_data(card_data)

@@ -5,8 +5,11 @@ const UNIVERSE_SIZE = 50 # 50 cards in all
 var TYPES = ["Triangle", "Circle", "Square"]
 
 var all_cards = []
+var player_deck = []
 
 func _ready():
+	randomize()
+	
 	for i in range(UNIVERSE_SIZE):
 		# Dupes are OK. Don't really care.
 		# [1..max]

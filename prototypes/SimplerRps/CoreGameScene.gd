@@ -3,7 +3,15 @@ extends Node2D
 var _player_card
 
 func _ready():
+	$PlayerDeck.set_cards(Globals.player_deck)
 	$PlayerDeck.own_cards("Player")
+	
+	# TODO: set to NPC's persistent deck of 8
+	var npc_deck = []
+	while len(npc_deck) < 8:
+		npc_deck.append(Globals.all_cards[randi() % len(Globals.all_cards)])
+		
+	$AiDeck.set_cards(npc_deck)
 	$AiDeck.own_cards("AI")
 	$AiDeck.recolour_to_owner()
 	$PlayerDeck.connect("card_selected", self, "_on_player_card_select")

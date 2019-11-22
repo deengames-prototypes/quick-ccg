@@ -6,8 +6,10 @@ export(int) var strength = 1
 export(int) var defense = 1
 
 signal on_click
+var data
 
 func set_data(card):
+	self.data = card
 	self.strength = card["strength"]
 	self.defense = card["defense"]
 	self.affinity = card["affinity"]
