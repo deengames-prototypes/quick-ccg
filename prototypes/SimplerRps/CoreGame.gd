@@ -47,3 +47,29 @@ func _ai_do_something():
 	
 	$AiDeck.remove_card(card_tile)
 	best.set_occupant(card_tile)
+	
+	_check_for_game_over()
+
+func _check_for_game_over():
+	var player_score = 0
+	var ai_score = 0
+	
+	for tile in $Board.tiles:
+		var occupier = tile.occupant
+		if occupier == null: # unoccupied
+			return
+			
+		if occupier.owned_by == "AI":
+			ai_score += 1
+		elif occupier.owned_by == "Player":
+			player_score += 1
+		else:
+			# ???
+			return
+	
+	var winner_text = "You win!"
+	if ai_score > player_score:
+		winner_text = "You lose!"
+	
+	$EndGame.visible = true
+	$EndGame/Label.text += winner_text
