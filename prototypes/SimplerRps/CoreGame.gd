@@ -15,6 +15,8 @@ func _on_player_tile_click(tile):
 		tile.set_occupant(_player_card)
 		_player_card = null
 		_ai_do_something()
-		
+
+# The hope: pick a random card, pick the best move, play it
 func _ai_do_something():
-	pass
+	var tiles = $AiDeck.tiles[randi() % len($AiDeck.tiles)]
+	$AiDeck.remove_card(tiles)

@@ -7,12 +7,11 @@ export var size = 8
 
 var selected # Card
 
-var _cards = []
+var tiles = []
 
 func _ready():
 	for i in range(size):
 		var card = Globals.all_cards[randi() % len(Globals.all_cards)]
-		_cards.append(card)
 		# TODO: replace with card
 		var tile = Card.instance()
 		tile.set_data(card)
@@ -20,14 +19,15 @@ func _ready():
 		# can send "card" (data) instead
 		tile.connect("on_click", self, "_set_selected_card", [tile])
 		add_child(tile)
+		tiles.append(tile)
 
 func remove_card(card):
 	# UGH, typecasting: card(Node2D) vs card(script instance)
 	
-	for i in range(len(_cards)):
-		var c = _cards[i]
+	for i in range(len(tiles)):
+		var c = tiles[i]
 		if card.strength == c.strength and card.defense == c.defense and card.affinity == c.affinity:
-			_cards.remove(i)
+			tiles.remove(i)
 			break
 			
 	self.remove_child(card)
