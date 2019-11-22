@@ -10,7 +10,7 @@ func _on_player_card_select(card):
 	_player_card = card
 	
 func _on_player_tile_click(tile):
-	if _player_card != null:
-		# TODO: check if tile is empty
+	if _player_card != null and tile.occupant == null:
 		$PlayerDeck.remove_card(_player_card)
+		tile.set_occupant(_player_card)
 		_player_card = null

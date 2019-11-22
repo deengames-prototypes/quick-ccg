@@ -3,6 +3,8 @@ extends Node2D
 export(int) var x = 0;
 export(int) var y = 0;
 
+var occupant = null # Card
+
 signal on_click
 
 func _on_Area2D_input_event(viewport, event, shape_idx):
@@ -10,3 +12,9 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 		var click:InputEventMouseButton = event
 		if click.is_pressed():
 			self.emit_signal("on_click")
+
+func set_occupant(card):
+	self.occupant = card
+	card.position = Vector2(0, 0)
+	self.add_child(card)
+	self.remove_child($Sprite) # ??? needed to display
