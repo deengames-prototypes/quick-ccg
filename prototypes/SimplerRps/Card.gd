@@ -3,7 +3,6 @@ extends Node2D
 export(String) var affinity = "Triangle"
 export(int) var strength = 1
 export(int) var defense = 1
-export(bool) var can_move = true
 
 signal on_click
 
