@@ -16,6 +16,10 @@ func _ready():
 	$AiDeck.recolour_to_owner()
 	$PlayerDeck.connect("card_selected", self, "_on_player_card_select")
 	$Board.connect("on_tile_click", self, "_on_player_tile_click")
+	
+	############## loading test
+	yield(get_tree().create_timer(1), "timeout")
+	get_tree().change_scene("res://MapScene.tscn")
 
 func _on_player_card_select(card):
 	_player_card = card

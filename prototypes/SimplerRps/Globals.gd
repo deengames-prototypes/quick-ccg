@@ -3,6 +3,7 @@ extends Node
 const MAX_VALUE = 6
 const UNIVERSE_SIZE = 50 # 50 cards in all
 const PLAYER_DECK_SIZE = 20
+
 var TYPES = ["Triangle", "Circle", "Square"]
 
 var all_cards = []
@@ -10,6 +11,8 @@ var player_deck = []
 
 # poor excuse for non-string type checking
 var player
+
+var map_data = null # array of NPC data, saved/loaded
 
 func _ready():
 	randomize()
