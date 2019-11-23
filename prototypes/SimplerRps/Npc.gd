@@ -12,6 +12,6 @@ func init(n):
 
 func _on_Area2D_body_entered(body):
 	if can_battle and body == Globals.player:
-		can_battle = false
 		self.emit_signal("starting_battle")
+		Globals.current_npc_deck = deck
 		get_tree().change_scene("res://CoreGameScene.tscn")
