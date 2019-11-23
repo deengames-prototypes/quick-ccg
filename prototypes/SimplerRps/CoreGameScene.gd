@@ -12,10 +12,6 @@ func _ready():
 	$PlayerDeck.connect("card_selected", self, "_on_player_card_select")
 	$Board.connect("on_tile_click", self, "_on_player_tile_click")
 	
-	############## loading test
-	yield(get_tree().create_timer(1), "timeout")
-	get_tree().change_scene("res://MapScene.tscn")
-
 func _on_player_card_select(card):
 	_player_card = card
 	
@@ -31,29 +27,31 @@ func _on_player_tile_click(tile):
 # This is a reasonable facsimile of human behaviour (no good cards,
 # drawing out opponent, saving best for last, etc.)
 func _ai_do_something():
-	var card_tile = $AiDeck.tiles[randi() % len($AiDeck.tiles)]
-	$AiDeck.remove_card(card_tile)
+	### rare crash: we have no cards
+	if len($AiDeck.tiles) > 0:
+		var card_tile = $AiDeck.tiles[randi() % len($AiDeck.tiles)]
+		$AiDeck.remove_card(card_tile)
+		
+		var best = null
+		var best_score = -1 # score of zero is possible, still should pick it if it's the best move
+		
+		for tile in $Board.tiles:
+			if tile.occupant == null:
+				# empty tile, look at adjacencies to calculate number of wins
+				var adjacencies = $Board.get_adjacencies(tile)
+				var total_score = 0
 	
-	var best = null
-	var best_score = -1 # score of zero is possible, still should pick it if it's the best move
-	
-	for tile in $Board.tiles:
-		if tile.occupant == null:
-			# empty tile, look at adjacencies to calculate number of wins
-			var adjacencies = $Board.get_adjacencies(tile)
-			var total_score = 0
-
-			for adjacent in adjacencies:
-				var target = adjacent.occupant
-				if target != null and target.owned_by != card_tile.owned_by:
-					total_score += Globals.calculate_damage(card_tile, adjacent.occupant)
-			
-			if total_score > best_score:
-				best_score = total_score
-				best = tile
-	
-	$AiDeck.remove_card(card_tile)
-	best.set_occupant(card_tile)
+				for adjacent in adjacencies:
+					var target = adjacent.occupant
+					if target != null and target.owned_by != card_tile.owned_by:
+						total_score += Globals.calculate_damage(card_tile, adjacent.occupant)
+				
+				if total_score > best_score:
+					best_score = total_score
+					best = tile
+		
+		$AiDeck.remove_card(card_tile)
+		best.set_occupant(card_tile)
 	
 	_check_for_game_over()
 
@@ -81,3 +79,7 @@ func _check_for_game_over():
 	
 	$EndGame.visible = true
 	$EndGame/Label.text += winner_text
+	
+	yield(get_tree().create_timer(5), "timeout")
+	get_tree().change_scene("res://MapScene.tscn")
+	
