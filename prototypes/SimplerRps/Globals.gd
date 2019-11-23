@@ -2,6 +2,7 @@ extends Node
 
 const MAX_VALUE = 6
 const UNIVERSE_SIZE = 50 # 50 cards in all
+const PLAYER_DECK_SIZE = 20
 var TYPES = ["Triangle", "Circle", "Square"]
 
 var all_cards = []
@@ -9,8 +10,6 @@ var player_deck = []
 
 # poor excuse for non-string type checking
 var player
-# lack of static variables ugh
-var next_npc_id = 1
 
 func _ready():
 	randomize()
@@ -23,6 +22,11 @@ func _ready():
 		var affinity = TYPES[randi() % len(TYPES)]
 		var card = {"strength": strength, "defense": defense, "affinity": affinity}
 		all_cards.append(card)
+	
+	for i in range(PLAYER_DECK_SIZE):
+		var next = all_cards[randi() % len(all_cards)]
+		# dupes are fine
+		player_deck.append(next)
 
 func calculate_damage(attacker_card, defender_card):
 	var damage_multiplier = affinity_compare(attacker_card.affinity, defender_card.affinity)

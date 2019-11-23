@@ -1,3 +1,5 @@
+#### REMOVED. Doesn't make sense.
+
 extends Node2D
 
 const Card = preload("res://Card.tscn")
@@ -22,4 +24,4 @@ func _add_to_deck(card):
 	
 	if len(_picked) == 12:
 		Globals.player_deck = _picked
-		get_tree().change_scene("res://CoreGameScene.tscn")
+		get_tree().change_scene("res://MapScene.tscn")
