@@ -4,6 +4,9 @@ const ZERO_VECTOR = Vector2(0, 0)
 
 export var speed = 300
 
+func _ready():
+	Globals.player = self
+
 func _physics_process(delta):
 	self._move_to_keyboard()
 

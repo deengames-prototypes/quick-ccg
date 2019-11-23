@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SimplerRps"
-run/main_scene="res://DeckSelectScene.tscn"
+run/main_scene="res://MapScene.tscn"
 config/icon="res://icon.png"
 
 [autoload]

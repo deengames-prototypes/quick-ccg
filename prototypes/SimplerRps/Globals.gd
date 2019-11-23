@@ -7,6 +7,11 @@ var TYPES = ["Triangle", "Circle", "Square"]
 var all_cards = []
 var player_deck = []
 
+# poor excuse for non-string type checking
+var player
+# lack of static variables ugh
+var next_npc_id = 1
+
 func _ready():
 	randomize()
 	
