@@ -30,7 +30,7 @@ func _on_player_tile_click(tile):
 # drawing out opponent, saving best for last, etc.)
 func _ai_do_something():
 	### rare crash: we have no cards
-	if len($AiDeck.tiles) > 0:		
+	if len($AiDeck.tiles) > 0:
 		var card_tile = $AiDeck.tiles[randi() % len($AiDeck.tiles)]
 		var best = null
 		
@@ -80,11 +80,16 @@ func _check_for_game_over():
 			# ???
 			return
 	
-	var winner_text = "You win!"
-	########### TODO: 		can_battle = false
-	if ai_score > player_score:
+	var winner_text = ""
+	if player_score > ai_score:
+		winner_text = "You win!"
+	elif player_score == ai_score:
+		winner_text = "Draw!"
+		Globals.npc_fighting = null # can rematch
+	elif ai_score > player_score:
 		winner_text = "You lose!"
-	
+		Globals.npc_fighting = null # can rematch
+		
 	$EndGame.visible = true
 	$EndGame/Label.text += winner_text
 	

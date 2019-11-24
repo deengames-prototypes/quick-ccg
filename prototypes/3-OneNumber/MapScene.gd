@@ -17,6 +17,11 @@ func _ready():
 			# set deck
 			npc.position = Vector2(40 + (randi() % 520), 40 + (randi() % 460))
 	
+		if i + 1 == Globals.npc_fighting:
+			npc.can_battle = false # defeated!
+			print(str(i) + " was defeated!")
+			Globals.npc_fighting = -1
+			
 		npc.deck = Globals.npc_decks[i]
 		npc.connect("starting_battle", self, "_save_map")
 		self.add_child(npc)

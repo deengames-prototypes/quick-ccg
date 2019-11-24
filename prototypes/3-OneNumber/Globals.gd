@@ -17,6 +17,7 @@ var npc_decks = [] # array of arrays
 var player
 # shared between NPC and CoreGameScene
 var current_npc_deck
+var npc_fighting = -1
 
 var map_data = null # array of NPC data, saved/loaded
 
