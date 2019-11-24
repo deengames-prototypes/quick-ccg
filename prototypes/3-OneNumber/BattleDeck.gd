@@ -39,8 +39,8 @@ func remove_card(card):
 	if self.get_children().find(card) == -1:
 		print("Trying to remove card that isn't in deck")
 		get_tree().quit()
-		
-	self.remove_child(card)
+	else:
+		self.remove_child(card)
 	
 func _set_selected_card(card):
 	self.selected = card
