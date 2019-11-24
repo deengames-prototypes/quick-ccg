@@ -30,7 +30,6 @@ func _ai_do_something():
 	### rare crash: we have no cards
 	if len($AiDeck.tiles) > 0:
 		var card_tile = $AiDeck.tiles[randi() % len($AiDeck.tiles)]
-		$AiDeck.remove_card(card_tile)
 		
 		var best = null
 		var best_score = -1 # score of zero is possible, still should pick it if it's the best move
