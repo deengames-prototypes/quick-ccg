@@ -32,10 +32,14 @@ func remove_card(card):
 	# UGH, typecasting: card(Node2D) vs card(script instance)
 	for i in range(len(tiles)):
 		var c = tiles[i]
-		if card.strength == c.strength and card.defense == c.defense and card.affinity == c.affinity:
+		if card.defense == c.defense and card.affinity == c.affinity:
 			tiles.remove(i)
 			break
-			
+	
+	if self.get_children().find(card) == -1:
+		print("Trying to remove card that isn't in deck")
+		get_tree().quit()
+		
 	self.remove_child(card)
 	
 func _set_selected_card(card):

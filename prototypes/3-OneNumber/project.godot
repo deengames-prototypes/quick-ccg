@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="SimplerRps"
+config/name="OneNumber"
 run/main_scene="res://MapScene.tscn"
 config/icon="res://icon.png"
 
