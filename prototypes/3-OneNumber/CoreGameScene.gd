@@ -5,7 +5,7 @@ const RANDOM_MOVE_PROBABILITY = 0.25
 var _player_card
 
 func _ready():
-	$PlayerDeck.set_cards(Globals.player_deck)
+	$PlayerDeck.set_cards(Globals.player_hand)
 	$PlayerDeck.own_cards("Player")
 	
 	$AiDeck.set_cards(Globals.current_npc_deck)

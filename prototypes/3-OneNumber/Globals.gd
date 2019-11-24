@@ -3,12 +3,14 @@ extends Node
 const MAX_VALUE = 6
 const UNIVERSE_SIZE = 50 # 50 cards in all
 const PLAYER_DECK_SIZE = 20
+const PLAYER_HAND_SIZE = 8
 const NUM_NPCS = 5
 
 var TYPES = ["Triangle", "Circle", "Square"]
 
 var all_cards = []
 var player_deck = []
+var player_hand = [] # subset of player deck
 var npc_decks = [] # array of arrays
 
 # poor excuse for non-string type checking
@@ -42,6 +44,9 @@ func _ready():
 	for i in range(PLAYER_DECK_SIZE):
 		var next = all_cards[randi() % len(all_cards)]
 		player_deck.append(next)
+	
+	for i in range(PLAYER_HAND_SIZE):
+		player_hand.append(player_deck[i])
 
 func calculate_damage(attacker_card, defender_card):
 	var damage_multiplier = affinity_compare(attacker_card.affinity, defender_card.affinity)
