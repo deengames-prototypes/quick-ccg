@@ -51,8 +51,6 @@ func _ready():
 	for i in range(PLAYER_HAND_SIZE):
 		player_hand.append(player_deck[i])
 	
-	print("Derp: deck=" + str(len(player_deck)) + " hand=" + str(len(player_hand)))
-
 func calculate_damage(attacker_card, defender_card):
 	var damage_multiplier = affinity_compare(attacker_card.affinity, defender_card.affinity)
 	var raw_damage = attacker_card.defense * damage_multiplier

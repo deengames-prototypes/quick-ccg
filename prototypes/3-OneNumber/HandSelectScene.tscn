@@ -15,5 +15,5 @@ margin_top = 520.0
 margin_right = 600.0
 margin_bottom = 544.0
 custom_fonts/font = SubResource( 1 )
-text = "Hand: 0/1"
+text = "Hand: 8/8"
 align = 1

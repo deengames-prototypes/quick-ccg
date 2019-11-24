@@ -19,8 +19,11 @@ func _on_player_card_select(card):
 	
 func _on_player_tile_click(tile):
 	if _player_card != null and tile.occupant == null:
+		print("Player1: parent=" + str(_player_card.get_parent()))
 		$PlayerDeck.remove_card(_player_card)
+		print("Player2: parent=" + str(_player_card.get_parent()))
 		tile.set_occupant(_player_card)
+		print("Player3: parent=" + str(_player_card.get_parent()))
 		_player_card = null
 		yield(get_tree().create_timer(1), 'timeout')
 		_ai_do_something()
@@ -31,7 +34,7 @@ func _on_player_tile_click(tile):
 func _ai_do_something():
 	### rare crash: we have no cards
 	if len($AiDeck.tiles) > 0:
-		var card_tile = $AiDeck.tiles[randi() % len($AiDeck.tiles)]
+		var random_pick = $AiDeck.tiles[randi() % len($AiDeck.tiles)]
 		var best = null
 		
 		# x% chance of placing on a random tile
@@ -51,15 +54,15 @@ func _ai_do_something():
 		
 					for adjacent in adjacencies:
 						var target = adjacent.occupant
-						if target != null and target.owned_by != card_tile.owned_by:
-							total_score += Globals.calculate_damage(card_tile, adjacent.occupant)
+						if target != null and target.owned_by == random_pick.owned_by:
+							total_score += Globals.calculate_damage(random_pick, adjacent.occupant)
 					
 					if total_score > best_score:
 						best_score = total_score
 						best = tile
 		
-		$AiDeck.remove_card(card_tile)
-		best.set_occupant(card_tile)
+		$AiDeck.remove_card(random_pick)
+		best.set_occupant(random_pick)
 	
 	_check_for_game_over()
 
@@ -93,6 +96,6 @@ func _check_for_game_over():
 	$EndGame.visible = true
 	$EndGame/Label.text += winner_text
 	
-	yield(get_tree().create_timer(5), "timeout")
+	yield(get_tree().create_timer(2), "timeout")
 	get_tree().change_scene("res://MapScene.tscn")
 	

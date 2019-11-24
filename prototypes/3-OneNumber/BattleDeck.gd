@@ -6,7 +6,7 @@ signal card_selected
 export var size = 8
 
 var selected # Card
-var tiles = [] # should be called "cards"
+var tiles = [] # should be called "cards" - Card.instance()
 
 func set_cards(cards):
 	for i in range(len(cards)):
@@ -29,18 +29,9 @@ func recolour_to_owner():
 		card.recolour_to_owner()
 
 func remove_card(card):
-	# UGH, typecasting: card(Node2D) vs card(script instance)
-	for i in range(len(tiles)):
-		var c = tiles[i]
-		if card.defense == c.defense and card.affinity == c.affinity:
-			tiles.remove(i)
-			break
-	
-	if self.get_children().find(card) == -1:
-		print("Trying to remove card that isn't in deck")
-		get_tree().quit()
-	else:
-		self.remove_child(card)
+
+	self.tiles.remove(self.tiles.find(card))
+	self.remove_child(card)
 	
 func _set_selected_card(card):
 	self.selected = card
