@@ -19,11 +19,8 @@ func _on_player_card_select(card):
 	
 func _on_player_tile_click(tile):
 	if _player_card != null and tile.occupant == null:
-		print("Player1: parent=" + str(_player_card.get_parent()))
 		$PlayerDeck.remove_card(_player_card)
-		print("Player2: parent=" + str(_player_card.get_parent()))
 		tile.set_occupant(_player_card)
-		print("Player3: parent=" + str(_player_card.get_parent()))
 		_player_card = null
 		yield(get_tree().create_timer(1), 'timeout')
 		_ai_do_something()
