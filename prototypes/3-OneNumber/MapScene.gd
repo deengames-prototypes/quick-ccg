@@ -33,3 +33,7 @@ func _save_map():
 	Globals.map_data = {
 		"npcs": npcs
 	}
+
+func _unhandled_input(event):
+	if Input.is_key_pressed(KEY_ESCAPE):
+		get_tree().change_scene("res://HandSelectScene.tscn")

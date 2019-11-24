@@ -42,4 +42,7 @@ func _toggle_hand(card):
 		_show_selected(card)
 		
 	$Label.text = "Hand: " + str(len(Globals.player_hand)) + "/" + str(Globals.PLAYER_HAND_SIZE)
-	#get_tree().change_scene("res://MapScene.tscn")
+
+func _unhandled_input(event):
+	if Input.is_key_pressed(KEY_ESCAPE):
+		get_tree().change_scene("res://MapScene.tscn")
