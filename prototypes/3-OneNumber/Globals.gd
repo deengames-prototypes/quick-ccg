@@ -37,16 +37,20 @@ func _ready():
 		for j in range(8):
 		# dupes are fine
 			var next = all_cards[randi() % len(all_cards)]
+			next = parse_json(to_json(next)) # cheap way to copy it
 			deck.append(next)
 			
 		npc_decks.append(deck)
 	
 	for i in range(PLAYER_DECK_SIZE):
 		var next = all_cards[randi() % len(all_cards)]
+		next = parse_json(to_json(next)) # cheap way to copy it
 		player_deck.append(next)
 	
 	for i in range(PLAYER_HAND_SIZE):
 		player_hand.append(player_deck[i])
+	
+	print("Derp: deck=" + str(len(player_deck)) + " hand=" + str(len(player_hand)))
 
 func calculate_damage(attacker_card, defender_card):
 	var damage_multiplier = affinity_compare(attacker_card.affinity, defender_card.affinity)

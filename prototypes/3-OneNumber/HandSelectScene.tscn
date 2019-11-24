@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://DeckSelectScene.gd" type="Script" id=1]
+[ext_resource path="res://HandSelectScene.gd" type="Script" id=1]
 [ext_resource path="res://ZCOOLXiaoWei-Regular.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
@@ -15,5 +15,5 @@ margin_top = 520.0
 margin_right = 600.0
 margin_bottom = 544.0
 custom_fonts/font = SubResource( 1 )
-text = "Deck: 0/12"
+text = "Hand: 0/1"
 align = 1
