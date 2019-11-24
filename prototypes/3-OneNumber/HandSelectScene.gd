@@ -30,5 +30,16 @@ func _show_unselected(card):
 	card.get_node("ColorRect").color.a = 0
 
 func _toggle_hand(card):
-	$Label.text = "Hand: " + str(len(_picked)) + "/" + str(Globals.PLAYER_HAND_SIZE)
+	var data = card.data
+	
+	# In hand, remove
+	if data in Globals.player_hand:
+		Globals.player_hand.remove(Globals.player_hand.find(data))
+		_show_unselected(card)
+	# Not in hand, add (if sufficient space)
+	elif len(Globals.player_hand) < Globals.PLAYER_HAND_SIZE:
+		Globals.player_hand.append(data)
+		_show_selected(card)
+		
+	$Label.text = "Hand: " + str(len(Globals.player_hand)) + "/" + str(Globals.PLAYER_HAND_SIZE)
 	#get_tree().change_scene("res://MapScene.tscn")
