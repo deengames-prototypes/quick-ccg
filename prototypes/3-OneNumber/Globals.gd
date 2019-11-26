@@ -1,6 +1,6 @@
 extends Node
 
-const MAX_VALUE = 7
+const MAX_VALUE = 6 # on spawn, not from upgrades
 const UNIVERSE_SIZE = 50 # 50 cards in all
 const PLAYER_DECK_SIZE = 20
 const PLAYER_HAND_SIZE = 8
@@ -20,6 +20,8 @@ var player
 # shared between NPC and CoreGameScene
 var current_npc_deck
 var npc_fighting = -1
+var npcs_beaten = []
+
 var battles_until_next_level_up = BATTLES_TO_LEVEL_UP
 var stats_points = 0
 
@@ -44,6 +46,12 @@ func _ready():
 			var next = all_cards[randi() % len(all_cards)]
 			next = parse_json(to_json(next)) # cheap way to copy it
 			deck.append(next)
+			
+		# For NPC #n, upgrade n cards by +1. Easy breezy.
+		# Not guaranteed to give linear difficulty. Meh.
+		for j in range(i + 1):
+			var random_card = deck[randi() % len(deck)]
+			random_card.defense += 1
 			
 		npc_decks.append(deck)
 	
