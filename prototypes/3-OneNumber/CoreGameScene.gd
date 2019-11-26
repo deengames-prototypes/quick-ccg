@@ -83,6 +83,10 @@ func _check_for_game_over():
 	var winner_text = ""
 	if player_score > ai_score:
 		winner_text = "You win!"
+		Globals.battles_until_next_level_up -= 1
+		if Globals.battles_until_next_level_up == 0:
+			Globals.battles_until_next_level_up = Globals.BATTLES_TO_LEVEL_UP
+			winner_text += " Level up!"
 	elif player_score == ai_score:
 		winner_text = "Draw!"
 		Globals.npc_fighting = null # can rematch

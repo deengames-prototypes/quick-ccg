@@ -5,6 +5,7 @@ const UNIVERSE_SIZE = 50 # 50 cards in all
 const PLAYER_DECK_SIZE = 20
 const PLAYER_HAND_SIZE = 8
 const NUM_NPCS = 5
+const BATTLES_TO_LEVEL_UP = 2
 
 var TYPES = ["Triangle", "Circle", "Square"]
 
@@ -18,6 +19,7 @@ var player
 # shared between NPC and CoreGameScene
 var current_npc_deck
 var npc_fighting = -1
+var battles_until_next_level_up = BATTLES_TO_LEVEL_UP
 
 var map_data = null # array of NPC data, saved/loaded
 
