@@ -83,17 +83,25 @@ func _check_for_game_over():
 	var winner_text = ""
 	if player_score > ai_score:
 		winner_text = "You win!"
+		
 		Globals.battles_until_next_level_up -= 1
 		if Globals.battles_until_next_level_up == 0:
 			Globals.battles_until_next_level_up = Globals.BATTLES_TO_LEVEL_UP
 			winner_text += " Level up!"
 			Globals.stats_points += Globals.POINTS_PER_LEVEL_UP
+			
+		$EndGame/Spoils.visible = true
+		var spoil = Globals.current_npc_deck[randi() % len(Globals.current_npc_deck)]
+		$EndGame/Spoils.set_data(spoil)
+		Globals.player_deck.append(spoil)
 	elif player_score == ai_score:
 		winner_text = "Draw!"
 		Globals.npc_fighting = null # can rematch
+		$EndGame/Spoils.visible = false
 	elif ai_score > player_score:
 		winner_text = "You lose!"
 		Globals.npc_fighting = null # can rematch
+		$EndGame/Spoils.visible = false
 		
 	$EndGame.visible = true
 	$EndGame/Label.text += winner_text
