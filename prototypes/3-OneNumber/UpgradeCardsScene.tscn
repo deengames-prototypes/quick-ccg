@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://HandSelectScene.gd" type="Script" id=1]
+[ext_resource path="res://UpgradeCardsScene.gd" type="Script" id=1]
 [ext_resource path="res://ZCOOLXiaoWei-Regular.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
@@ -17,16 +17,16 @@ script = ExtResource( 1 )
 [node name="Label" type="Label" parent="."]
 margin_top = 520.0
 margin_right = 600.0
-margin_bottom = 544.0
+margin_bottom = 545.0
 custom_fonts/font = SubResource( 1 )
-text = "Hand: 8/8"
+text = "Upgrade points: 0"
 align = 1
 
 [node name="Button" type="Button" parent="."]
-margin_left = 235.496
-margin_top = 457.63
-margin_right = 363.496
-margin_bottom = 496.63
+margin_left = 208.438
+margin_top = 467.524
+margin_right = 405.438
+margin_bottom = 506.524
 custom_fonts/font = SubResource( 2 )
-text = "Upgrade"
-[connection signal="pressed" from="Button" to="." method="_on_UpgradeButton_pressed"]
+text = "Manage Hand"
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

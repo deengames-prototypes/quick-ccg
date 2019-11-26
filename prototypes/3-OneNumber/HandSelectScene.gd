@@ -1,5 +1,3 @@
-#### REMOVED. Doesn't make sense.
-
 extends Node2D
 
 const Card = preload("res://Card.tscn")
@@ -46,3 +44,6 @@ func _toggle_hand(card):
 func _unhandled_input(event):
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().change_scene("res://MapScene.tscn")
+
+func _on_UpgradeButton_pressed():
+	get_tree().change_scene("res://UpgradeCardsScene.tscn")
