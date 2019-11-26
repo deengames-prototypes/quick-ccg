@@ -1,6 +1,6 @@
 extends Node
 
-const MAX_VALUE = 6
+const MAX_VALUE = 7
 const UNIVERSE_SIZE = 50 # 50 cards in all
 const PLAYER_DECK_SIZE = 20
 const PLAYER_HAND_SIZE = 8
