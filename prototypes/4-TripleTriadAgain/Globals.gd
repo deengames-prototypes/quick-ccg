@@ -5,8 +5,10 @@ const UNIVERSE_SIZE = 50 # 50 cards in all
 const PLAYER_DECK_SIZE = 20
 const PLAYER_HAND_SIZE = 8
 const NUM_NPCS = 5
-const BATTLES_TO_LEVEL_UP = 2
-const POINTS_PER_LEVEL_UP = 3
+const BATTLES_TO_LEVEL_UP = 2 # unused
+const POINTS_PER_LEVEL_UP = 3 # unused
+
+const CARD_WIDTH = 64
 const CARD_HEIGHT = 84
 
 var TYPES = ["Triangle", "Circle", "Square"]

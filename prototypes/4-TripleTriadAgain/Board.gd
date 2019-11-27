@@ -16,7 +16,7 @@ func _ready():
 			var tile = BoardTile.instance()
 			tile.x = x
 			tile.y = y
-			tile.position = Vector2(tile.x * 64, tile.y * 64)
+			tile.position = Vector2(tile.x * Globals.CARD_WIDTH, tile.y * Globals.CARD_HEIGHT)
 			tile.connect("on_click", self, "_on_tile_click", [tile])
 			tile.connect("occupied", self, "_on_tile_occupied", [tile])
 			tiles.append(tile)
