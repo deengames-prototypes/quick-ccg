@@ -77,7 +77,7 @@ func _ready():
 # defender_coordinates => [x, y]
 func calculate_damage(attacker_card, attacker_coordinates, defender_card, defender_coordinates):
 	var attack_value = 0
-	#var defend_value = 0
+	var defend_value = 0
 		
 	if Features.FOUR_DIRECTIONAL_CARDS:
 		# assume attacker and defender are adjacent. If not, this will collapse.
@@ -90,23 +90,24 @@ func calculate_damage(attacker_card, attacker_coordinates, defender_card, defend
 			# vertically adjacent.
 			if a_y > d_y:
 				attack_value = attacker_card.four_values[0]
-				#defend_value = defender_card.four_values[3]
-			if a_y < d_y:
+				defend_value = defender_card.four_values[3]
+			elif a_y < d_y:
 				attack_value = attacker_card.four_values[3]
-				#defend_value = defender_card.four_values[0]
+				defend_value = defender_card.four_values[0]
 		elif a_y == d_y:
 			# horizontally adjacent
 			if a_x > d_x:
 				attack_value = attacker_card.four_values[1]
-				#defend_value = defender_card.four_values[2]
-			if a_x < d_x:
+				defend_value = defender_card.four_values[2]
+			elif a_x < d_x:
 				attack_value = attacker_card.four_values[2]
-				#defend_value = defender_card.four_values[1]
+				defend_value = defender_card.four_values[1]
 	else:
 		attack_value = attacker_card.defense
+		defend_value = defender_card.defense
 	
 	var damage_multiplier = affinity_compare(attacker_card.affinity, defender_card.affinity)
-	var raw_damage = (attack_value * damage_multiplier)
+	var raw_damage = (attack_value * damage_multiplier) - defend_value
 	return max(raw_damage, 0)
 	
 func affinity_compare(attack_affinity, defend_affinity):

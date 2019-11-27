@@ -51,6 +51,6 @@ func _on_tile_occupied(tile):
 		var target = adjacent.occupant
 		if target != null and target.owned_by != me.owned_by:
 			var damage = Globals.calculate_damage(me, [tile.x, tile.y], target, [adjacent.x, adjacent.y])
-			if damage > target.defense:
+			if damage > 0:
 				target.owned_by = me.owned_by
 				target.recolour_to_owner()
