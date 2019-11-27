@@ -7,6 +7,7 @@ const PLAYER_HAND_SIZE = 8
 const NUM_NPCS = 5
 const BATTLES_TO_LEVEL_UP = 2
 const POINTS_PER_LEVEL_UP = 3
+const CARD_HEIGHT = 84
 
 var TYPES = ["Triangle", "Circle", "Square"]
 
@@ -34,8 +35,13 @@ func _ready():
 		# Dupes are OK. Don't really care.
 		# [1..max]
 		var defense = (randi() % MAX_VALUE) + 1
+		
+		var four_values = []
+		for i in range(4):
+			four_values.append((randi() % MAX_VALUE) + 1)
+		
 		var affinity = TYPES[randi() % len(TYPES)]
-		var card = {"defense": defense, "affinity": affinity}
+		var card = {"defense": defense, "affinity": affinity, "four_values": four_values}
 		all_cards.append(card)
 		
 	for i in range(NUM_NPCS):

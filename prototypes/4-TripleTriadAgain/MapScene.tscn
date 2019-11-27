@@ -7,8 +7,8 @@
 script = ExtResource( 1 )
 
 [node name="Grass" type="ColorRect" parent="."]
-margin_right = 600.0
-margin_bottom = 540.0
+margin_right = 800.0
+margin_bottom = 800.0
 color = Color( 0.239216, 0.529412, 0.2, 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]

@@ -14,7 +14,7 @@ func set_cards(cards):
 		card_data = parse_json(to_json(card_data)) # cheap way to copy it
 		var card = Card.instance()
 		card.set_data(card_data)
-		card.position = Vector2(0, i * 64)
+		card.position = Vector2(0, i * Globals.CARD_HEIGHT)
 		# can send "card" (data) instead
 		card.connect("on_click", self, "_set_selected_card", [card])
 		add_child(card)
