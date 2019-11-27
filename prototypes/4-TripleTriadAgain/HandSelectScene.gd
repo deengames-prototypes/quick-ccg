@@ -5,6 +5,9 @@ const Card = preload("res://Card.tscn")
 var _picked = []
 
 func _ready():
+	if not Features.UPGRADE_CARDS:
+		$Button.visible = false
+		
 	for i in range(len(Globals.player_deck)):
 		var card = Globals.player_deck[i]
 		var c = Card.instance()
