@@ -52,7 +52,7 @@ func _ai_do_something():
 					for adjacent in adjacencies:
 						var target = adjacent.occupant
 						if target != null and target.owned_by == random_pick.owned_by:
-							total_score += Globals.calculate_damage(random_pick, adjacent.occupant)
+							total_score += Globals.calculate_damage(random_pick, [tile.x, tile.y], adjacent.occupant, [adjacent.x, adjacent.y])
 					
 					if total_score > best_score:
 						best_score = total_score

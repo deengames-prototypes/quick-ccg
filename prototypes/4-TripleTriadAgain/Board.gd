@@ -7,7 +7,7 @@ signal on_tile_click
 export(int) var tiles_wide = 4
 export(int) var tiles_high = 4
 
-var tiles = []
+var tiles = [] # BoardTile.instance
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,6 +23,7 @@ func _ready():
 			add_child(tile)
 			
 func get_adjacencies(tile):
+	# Array of BoardTile.instance
 	var adjacencies = []
 	
 	if tile.x > 0:
@@ -49,7 +50,7 @@ func _on_tile_occupied(tile):
 	for adjacent in adjacencies:
 		var target = adjacent.occupant
 		if target != null and target.owned_by != me.owned_by:
-			var damage = Globals.calculate_damage(me, target)
+			var damage = Globals.calculate_damage(me, [tile.x, tile.y], target, [adjacent.x, adjacent.y])
 			if damage > target.defense:
 				target.owned_by = me.owned_by
 				target.recolour_to_owner()
