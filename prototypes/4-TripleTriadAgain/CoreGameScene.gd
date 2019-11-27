@@ -84,11 +84,12 @@ func _check_for_game_over():
 	if player_score > ai_score:
 		winner_text = "You win!"
 		
-		Globals.battles_until_next_level_up -= 1
-		if Globals.battles_until_next_level_up == 0:
-			Globals.battles_until_next_level_up = Globals.BATTLES_TO_LEVEL_UP
-			winner_text += " Level up!"
-			Globals.stats_points += Globals.POINTS_PER_LEVEL_UP
+		if Features.LEVEL_UP:
+			Globals.battles_until_next_level_up -= 1
+			if Globals.battles_until_next_level_up == 0:
+				Globals.battles_until_next_level_up = Globals.BATTLES_TO_LEVEL_UP
+				winner_text += " Level up!"
+				Globals.stats_points += Globals.POINTS_PER_LEVEL_UP
 			
 		$EndGame/Spoils.visible = true
 		var spoil = Globals.current_npc_deck[randi() % len(Globals.current_npc_deck)]
