@@ -14,7 +14,7 @@ func _ready():
 		c.set_data(card)
 		var x = i % 9
 		var y = i / 9
-		c.position = Vector2(x * 68, y * 68)
+		c.position = Vector2(x * Globals.CARD_WIDTH, y * Globals.CARD_HEIGHT)
 		add_child(c)
 		
 		if card in Globals.player_hand:
