@@ -16,9 +16,11 @@ func set_data(card):
 	self.affinity = card["affinity"]
 	self.owned_by = ""
 	self.refresh()
-	$Sprite.texture = load("res://" + affinity.to_lower() + ".png")
 
 func refresh():
+	# Update affinity
+	$Sprite.texture = load("res://" + affinity.to_lower() + ".png")
+	
 	# Update numbers
 	if Features.FOUR_DIRECTIONAL_CARDS:
 		# format: U\nL    R\nD

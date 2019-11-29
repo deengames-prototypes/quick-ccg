@@ -61,6 +61,11 @@ func _on_tile_occupied(tile):
 				me.data.defense -= 1
 				me.refresh()
 			
+			if me.power == "Virus":
+				target.affinity = me.affinity
+				target.data.affinity = me.affinity
+				target.refresh()
+			
 			if target.power == "ExtraLife":
 				target.power = null
 				target.data.power = null
