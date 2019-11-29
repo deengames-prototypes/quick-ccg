@@ -7,4 +7,4 @@ const LEVEL_UP = false
 const CARD_POWERS = true
 
 # available powers: bomb, shield, flame, secondChance, virus, disease
-const AVAILABLE_POWERS = ["Bomb"]
+const AVAILABLE_POWERS = ["Bomb", "Shield"]

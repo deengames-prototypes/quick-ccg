@@ -123,6 +123,9 @@ func calculate_damage(attacker_card, attacker_coordinates, defender_card, defend
 	if attacker_card.power == "Bomb":
 		attack_value = 999
 		
+	if defender_card.power == "Shield":
+		defend_value = 999
+		
 	var damage_multiplier = affinity_compare(attacker_card.affinity, defender_card.affinity)
 	var raw_damage = (attack_value * damage_multiplier) - defend_value
 	return max(raw_damage, 0)
