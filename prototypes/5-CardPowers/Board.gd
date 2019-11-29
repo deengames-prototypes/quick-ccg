@@ -72,3 +72,8 @@ func _on_tile_occupied(tile):
 				target.owned_by = original_owner
 				target.recolour_to_owner()
 				target.refresh()
+			
+			if target.power == "Diseased":
+				me.affinity = target.affinity
+				me.data.affinity = target.affinity
+				me.refresh()
