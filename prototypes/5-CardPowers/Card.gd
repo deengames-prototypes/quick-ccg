@@ -15,15 +15,11 @@ func set_data(card):
 	self.four_values = card["four_values"]
 	self.affinity = card["affinity"]
 	self.owned_by = ""
-	if "power" in card:
-		self.power = card["power"]
-		$Power.texture = load("res://assets/" + self.power + ".png")
-		$Power.visible = true
-	
 	self.refresh()
 	$Sprite.texture = load("res://" + affinity.to_lower() + ".png")
 
 func refresh():
+	# Update numbers
 	if Features.FOUR_DIRECTIONAL_CARDS:
 		# format: U\nL    R\nD
 		# Up, newline, left, four spaces, right, newline, down.
@@ -32,6 +28,15 @@ func refresh():
 			str(four_values[3])
 	else:
 		$Label.text = str(defense)
+	
+	# Update powers (extra-life disappears on use)
+	if "power" in self.data and self.data["power"] != null:
+		self.power = self.data["power"]
+		$Power.texture = load("res://assets/" + self.power + ".png")
+		$Power.visible = true
+	else:
+		$Power.visible = false
+	
 
 func recolour_to_owner():
 	if self.owned_by == "AI":

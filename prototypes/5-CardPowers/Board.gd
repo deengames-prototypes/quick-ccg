@@ -50,6 +50,7 @@ func _on_tile_occupied(tile):
 	for adjacent in adjacencies:
 		var target = adjacent.occupant
 		if target != null and target.owned_by != me.owned_by:
+			var original_owner = target.owned_by
 			var damage = Globals.calculate_damage(me, [tile.x, tile.y], target, [adjacent.x, adjacent.y])
 			if damage > 0:
 				target.owned_by = me.owned_by
@@ -59,3 +60,10 @@ func _on_tile_occupied(tile):
 				me.defense -= 1
 				me.data.defense -= 1
 				me.refresh()
+			
+			if target.power == "ExtraLife":
+				target.power = null
+				target.data.power = null
+				target.owned_by = original_owner
+				target.recolour_to_owner()
+				target.refresh()
