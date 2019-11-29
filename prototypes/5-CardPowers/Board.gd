@@ -54,3 +54,8 @@ func _on_tile_occupied(tile):
 			if damage > 0:
 				target.owned_by = me.owned_by
 				target.recolour_to_owner()
+			
+			if me.power == "Fire":
+				me.defense -= 1
+				me.data.defense -= 1
+				me.refresh()
