@@ -9,6 +9,10 @@ signal on_click
 var data
 var power
 
+func _ready():
+	# make sure turning stuff off in the editor, doesn't break the game
+	$Area2D.visible = true
+
 func set_data(card):
 	self.data = card
 	self.defense = card["defense"]
