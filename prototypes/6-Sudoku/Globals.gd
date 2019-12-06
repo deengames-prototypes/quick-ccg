@@ -6,6 +6,7 @@ const PLAYER_DECK_SIZE = 30
 const PLAYER_HAND_SIZE = 18
 const NUM_NPCS = 5
 const CARD_POWER_PROBABILITY = 0.5
+const SUDOKU_PATTERN_POINT_BONUS = 3 # +points on sudoku pattern
 
 # Region: unused
 const BATTLES_TO_LEVEL_UP = 2 # unused

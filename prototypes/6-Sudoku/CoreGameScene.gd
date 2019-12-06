@@ -123,3 +123,7 @@ func _on_tile_captured(captured_by):
 
 func _on_sudoku_pattern(who, pattern_type):
 	$NewsLabel.text = who + " bonus: " + pattern_type + " pattern! "
+	if who == "AI":
+		_ai_points += Globals.SUDOKU_PATTERN_POINT_BONUS
+	else:
+		_player_points += Globals.SUDOKU_PATTERN_POINT_BONUS
