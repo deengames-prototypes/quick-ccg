@@ -125,40 +125,35 @@ func _update_score_display():
 func _ai_pick_best_by_points(card):
 	var best = null
 		
-	if randf() <= RANDOM_MOVE_PROBABILITY:
-		best = $Board.tiles[randi() % len($Board.tiles)]
-		while best.occupant != null:
-			best = $Board.tiles[randi() % len($Board.tiles)]
-	else:
-		# Random card, place best move
-		var best_score = -1 # score of zero is possible, still should pick it if it's the best move
-		
-		for tile in $Board.tiles:
-			if tile.occupant == null:
-				#print("Looking at " + str(tile.x) + ", " + str(tile.y))
-				# empty tile, look at adjacencies to calculate number of wins
-				var adjacencies = $Board.get_adjacencies(tile)
-				var damage_score = 0
+	# Random card, place best move
+	var best_score = -1 # score of zero is possible, still should pick it if it's the best move
 	
-				for adjacent in adjacencies:
-					var target = adjacent.occupant
-					if target != null and target.owned_by == card.owned_by:
-						damage_score += Globals.calculate_damage(card, [tile.x, tile.y], adjacent.occupant, [adjacent.x, adjacent.y])
-				
-				# can we make patterns?
-				var pattern_score = len($Board.can_make_pattern(tile, "AI")) * Globals.SUDOKU_PATTERN_POINT_BONUS
-				
-				 # can the player make patterns? block 'im!
-				var block_score = len($Board.can_make_pattern(tile, "Player")) * Globals.SUDOKU_PATTERN_POINT_BONUS
-				#print("Scores: damage=" + str(damage_score) + " pattern=" + str(pattern_score) + " block=" + str(block_score))
-				
-				var score = max(damage_score, max(pattern_score, block_score))
-				if score > best_score:
-					best_score = score
-					best = tile
-					#print("New best: " + str(best_score))
-	
-		#print("FINAL: best=" + str(best_score))
+	for tile in $Board.tiles:
+		if tile.occupant == null:
+			#print("Looking at " + str(tile.x) + ", " + str(tile.y))
+			# empty tile, look at adjacencies to calculate number of wins
+			var adjacencies = $Board.get_adjacencies(tile)
+			var damage_score = 0
+
+			for adjacent in adjacencies:
+				var target = adjacent.occupant
+				if target != null and target.owned_by == card.owned_by:
+					damage_score += Globals.calculate_damage(card, [tile.x, tile.y], adjacent.occupant, [adjacent.x, adjacent.y])
+			
+			# can we make patterns?
+			var pattern_score = len($Board.can_make_pattern(tile, "AI")) * Globals.SUDOKU_PATTERN_POINT_BONUS
+			
+			 # can the player make patterns? block 'im!
+			var block_score = len($Board.can_make_pattern(tile, "Player")) * Globals.SUDOKU_PATTERN_POINT_BONUS
+			#print("Scores: damage=" + str(damage_score) + " pattern=" + str(pattern_score) + " block=" + str(block_score))
+			
+			var score = max(damage_score, max(pattern_score, block_score))
+			if score > best_score:
+				best_score = score
+				best = tile
+				#print("New best: " + str(best_score))
+
+	#print("FINAL: best=" + str(best_score))
 	return best
 
 #############
