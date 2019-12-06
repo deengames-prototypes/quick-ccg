@@ -19,10 +19,13 @@ func _ready():
 	$Board.connect("on_tile_click", self, "_on_player_tile_click")
 	
 	if Features.POINTS_ON_CAPTURE:
-		$NewsLabel.visible = true
+		$ScoreLabel.visible = true
 		$Board.connect("on_tile_capture", self, "_on_tile_captured")
+		
+		if Features.SUDOKU_BONUSES:
+			$Board.connect("made_sudoku_pattern", self, "_on_sudoku_pattern")
 	else:
-		$NewsLabel.visible = false
+		$ScoreLabel.visible = false
 	
 func _on_player_card_select(card):
 	_player_card = card
@@ -33,6 +36,7 @@ func _on_player_tile_click(tile):
 		tile.set_occupant(_player_card)
 		_player_card = null
 		yield(get_tree().create_timer(1), 'timeout')
+		$NewsLabel.text = ""
 		_ai_do_something()
 
 # Strategy: pick a random card, pick the best move, play it.
@@ -115,4 +119,7 @@ func _on_tile_captured(captured_by):
 	else:
 		_player_points += 1
 	
-	$NewsLabel.text = "Player: " + str(_player_points) + "\nAI: " + str(_ai_points)
+	$ScoreLabel.text = "Player: " + str(_player_points) + "\nAI: " + str(_ai_points)
+
+func _on_sudoku_pattern(who, pattern_type):
+	$NewsLabel.text = who + " bonus: " + pattern_type + " pattern! "

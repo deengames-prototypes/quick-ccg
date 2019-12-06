@@ -6,6 +6,7 @@ const UPGRADE_CARDS = false
 const LEVEL_UP = false
 const CARD_POWERS = false
 const POINTS_ON_CAPTURE = true
+const SUDOKU_BONUSES = true
 
 # available powers: bomb, shield, fire, extra life, virus, diseased
 const AVAILABLE_POWERS = ["Bomb", "Shield", "Fire", "ExtraLife", "Virus", "Diseased"]
