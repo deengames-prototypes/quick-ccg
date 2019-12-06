@@ -27,10 +27,10 @@ func _ready():
 	_update_label()
 
 func _show_selected(card):
-	card.get_node("ColorRect").color.a = 0.5
+	card.get_node("ColorRect").color.a = 0
 	
 func _show_unselected(card):
-	card.get_node("ColorRect").color.a = 0
+	card.get_node("ColorRect").color.a = 0.5
 
 func _toggle_hand(card):
 	var data = card.data
