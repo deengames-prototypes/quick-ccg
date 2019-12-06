@@ -130,6 +130,11 @@ func calculate_damage(attacker_card, attacker_coordinates, defender_card, defend
 		
 	var damage_multiplier = affinity_compare(attacker_card.affinity, defender_card.affinity)
 	var raw_damage = (attack_value * damage_multiplier) - defend_value
+	
+	if Features.POINTS_ON_CAPTURE:
+		if raw_damage > 0: return 1
+		return 0
+	
 	return max(raw_damage, 0)
 	
 func affinity_compare(attack_affinity, defend_affinity):

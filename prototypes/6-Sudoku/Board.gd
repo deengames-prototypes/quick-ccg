@@ -117,7 +117,6 @@ func check_sudoku_patterns(tile, turn):
 	if Features.SUDOKU_BONUSES:
 		# there's always a horizontal row including tile
 		var min_x = 3 * (tile.x / 3)
-		
 		if _owner_at(min_x, tile.y) == turn and \
 			_owner_at(min_x + 1, tile.y) == turn and \
 			_owner_at(min_x + 2, tile.y) == turn:
@@ -131,7 +130,43 @@ func check_sudoku_patterns(tile, turn):
 			_owner_at(tile.x, min_y + 2) == turn:
 				to_return.append({"owner": turn, "pattern": 'column'})
 				print(turn + " captured COLUMN at min_y=" + str(min_y))
-		# there may be a diagonal including tile. fuggedaboudit.
-		pass
+	
+	return to_return
+	
+func can_make_pattern(tile, turn):
+	var to_return = []
+	
+	if Features.SUDOKU_BONUSES:
+		# there's always a horizontal row including tile
+		var min_x = 3 * (tile.x / 3)
+		var o1 = _owner_at(min_x, tile.y)
+		var o2 = _owner_at(min_x + 1, tile.y)
+		var o3 = _owner_at(min_x + 2, tile.y)
+		
+		if (o1 == null or o1 == turn) and (o2 == turn or o2 == null) and (o3 == turn or o3 == null):
+			var count = 0
+			if (o1 == null): count += 1
+			if (o2 == null): count += 1
+			if (o3 == null): count += 1
+			
+			# We either own or can own three in a row; and only one of those is a blank tile
+			if count == 1:
+				to_return.append({"owner": turn, "pattern": 'row'})
+				
+		# there's always a vertical row including tile
+		var min_y = 3 * (tile.y / 3)
+		o1 = _owner_at(tile.x, min_y)
+		o2 = _owner_at(tile.x, min_y + 1)
+		o3 = _owner_at(tile.x, min_y + 2)
+		
+		if (o1 == null or o1 == turn) and (o2 == turn or o2 == null) and (o3 == turn or o3 == null):
+			var count = 0
+			if (o1 == null): count += 1
+			if (o2 == null): count += 1
+			if (o3 == null): count += 1
+			
+			# We either own or can own three in a row; and only one of those is a blank tile
+			if count == 1:
+				to_return.append({"owner": turn, "pattern": 'column'})
 	
 	return to_return
