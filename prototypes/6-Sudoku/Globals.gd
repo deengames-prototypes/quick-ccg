@@ -29,9 +29,6 @@ var current_npc_deck
 var npc_fighting = -1
 var npcs_beaten = []
 
-# whose turn right now in battle? Used in board, too.
-var turn = "Player"
-
 var battles_until_next_level_up = BATTLES_TO_LEVEL_UP
 var stats_points = 0
 

@@ -66,7 +66,7 @@ func _tile_at(x, y):
 
 func _on_tile_click(tile):
 	self.emit_signal("on_tile_click", tile)
-	check_and_emit_sudoku_points(tile)
+	check_and_emit_sudoku_points(tile, "Player")
 
 func _on_tile_occupied(tile):
 	var me = tile.occupant
@@ -105,32 +105,32 @@ func _on_tile_occupied(tile):
 					me.data.affinity = target.affinity
 					me.refresh()
 
-func check_and_emit_sudoku_points(tile):
-	var patterns = check_sudoku_patterns(tile)
+func check_and_emit_sudoku_points(tile, turn):
+	var patterns = check_sudoku_patterns(tile, turn)
 	for pattern in patterns:
 		self.emit_signal('made_sudoku_pattern', pattern["owner"], pattern["pattern"])
 		
 ########## Returns a bunch of objects for each match, eg. { owner: player, pattern: row }
-func check_sudoku_patterns(tile):
+func check_sudoku_patterns(tile, turn):
 	var to_return = []
 	
 	if Features.SUDOKU_BONUSES:
 		# there's always a horizontal row including tile
 		var min_x = 3 * (tile.x / 3)
 		
-		if _owner_at(min_x, tile.y) == Globals.turn and \
-			_owner_at(min_x + 1, tile.y) == Globals.turn and \
-			_owner_at(min_x + 2, tile.y) == Globals.turn:
-				to_return.append({"owner": Globals.turn, "pattern": 'row'})
-				print(Globals.turn + " captured ROW at min_x=" + str(min_x))
+		if _owner_at(min_x, tile.y) == turn and \
+			_owner_at(min_x + 1, tile.y) == turn and \
+			_owner_at(min_x + 2, tile.y) == turn:
+				to_return.append({"owner": turn, "pattern": 'row'})
+				print(turn + " captured ROW at min_x=" + str(min_x))
 				
 		# there's always a vertical row including tile
 		var min_y = 3 * (tile.y / 3)
-		if _owner_at(tile.x, min_y) == Globals.turn and \
-			_owner_at(tile.x, min_y + 1) == Globals.turn and \
-			_owner_at(tile.x, min_y + 2) == Globals.turn:
-				to_return.append({"owner": Globals.turn, "pattern": 'column'})
-				print(Globals.turn + " captured COLUMN at min_y=" + str(min_y))
+		if _owner_at(tile.x, min_y) == turn and \
+			_owner_at(tile.x, min_y + 1) == turn and \
+			_owner_at(tile.x, min_y + 2) == turn:
+				to_return.append({"owner": turn, "pattern": 'column'})
+				print(turn + " captured COLUMN at min_y=" + str(min_y))
 		# there may be a diagonal including tile. fuggedaboudit.
 		pass
 	

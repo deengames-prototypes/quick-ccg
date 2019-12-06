@@ -6,9 +6,10 @@ var _player_card
 
 var _player_points = 0
 var _ai_points = 0
+var _turn = "Player"
 
 func _ready():
-	Globals.turn = "Player"
+	_turn = "Player"
 	$PlayerDeck.set_cards(Globals.player_hand)
 	$PlayerDeck.own_cards("Player")
 	
@@ -38,13 +39,14 @@ func _on_player_tile_click(tile):
 		_player_card = null
 		yield(get_tree().create_timer(1), 'timeout')
 		$NewsLabel.text = ""
-		Globals.turn = "AI"
 		_ai_do_something()
 
 # Strategy: pick a random card, pick the best move, play it.
 # This is a reasonable facsimile of human behaviour (no good cards,
 # drawing out opponent, saving best for last, etc.)
 func _ai_do_something():
+	_turn = "AI"
+	
 	### rare crash: we have no cards
 	if len($AiDeck.tiles) > 0:
 		var random_pick = $AiDeck.tiles[randi() % len($AiDeck.tiles)]
@@ -53,11 +55,11 @@ func _ai_do_something():
 		
 		$AiDeck.remove_card(random_pick)
 		best.set_occupant(random_pick)
-		$Board.check_and_emit_sudoku_points(best)
+		$Board.check_and_emit_sudoku_points(best, _turn)
 	
 	_check_for_game_over()
 	
-	Globals.turn = "Player"
+	_turn = "Player"
 
 func _check_for_game_over():
 	var winner_text = ""
@@ -144,7 +146,7 @@ func _ai_pick_best_by_points(card):
 				
 				var pattern_score = 0
 				if best != null:
-					pattern_score = len($Board.check_sudoku_patterns(best)) * Globals.SUDOKU_PATTERN_POINT_BONUS
+					pattern_score = len($Board.check_sudoku_patterns(best, _turn)) * Globals.SUDOKU_PATTERN_POINT_BONUS
 					
 				print("P=" + str(pattern_score) + " D=" + str(damage_score))
 				var score = max(damage_score, pattern_score)
