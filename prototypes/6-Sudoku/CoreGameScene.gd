@@ -8,6 +8,7 @@ var _player_points = 0
 var _ai_points = 0
 
 func _ready():
+	Globals.turn = "Player"
 	$PlayerDeck.set_cards(Globals.player_hand)
 	$PlayerDeck.own_cards("Player")
 	
@@ -37,6 +38,7 @@ func _on_player_tile_click(tile):
 		_player_card = null
 		yield(get_tree().create_timer(1), 'timeout')
 		$NewsLabel.text = ""
+		Globals.turn = "AI"
 		_ai_do_something()
 
 # Strategy: pick a random card, pick the best move, play it.
@@ -46,13 +48,16 @@ func _ai_do_something():
 	### rare crash: we have no cards
 	if len($AiDeck.tiles) > 0:
 		var random_pick = $AiDeck.tiles[randi() % len($AiDeck.tiles)]
-		var best = _ai_pick_best_by_damage(random_pick)
+		#var best = _ai_pick_best_by_damage(random_pick)
+		var best = _ai_pick_best_by_points(random_pick)
 		
 		$AiDeck.remove_card(random_pick)
 		best.set_occupant(random_pick)
 		$Board.check_and_emit_sudoku_points(best)
 	
 	_check_for_game_over()
+	
+	Globals.turn = "Player"
 
 func _check_for_game_over():
 	var winner_text = ""
@@ -109,6 +114,45 @@ func _on_sudoku_pattern(who, pattern_type):
 
 func _update_score_display():
 	$ScoreLabel.text = "Player: " + str(_player_points) + "\nAI: " + str(_ai_points)
+
+#############
+# Pick the best move based on points earned.
+# Equally weighs by point, meaning it prefers patterns (+3).
+# Unless, ya know, you can capture 4 cards in one shot.
+#############
+func _ai_pick_best_by_points(card):
+	var best = null
+		
+	# x% chance of reverting to damage calculation (seems random).
+	# This could also be, ya3ne, *actually* random.
+	if randf() <= RANDOM_MOVE_PROBABILITY:
+		best = _ai_pick_best_by_damage(card)
+	else:
+		# Random card, place best move
+		var best_score = -1 # score of zero is possible, still should pick it if it's the best move
+		
+		for tile in $Board.tiles:
+			if tile.occupant == null:
+				# empty tile, look at adjacencies to calculate number of wins
+				var adjacencies = $Board.get_adjacencies(tile)
+				var damage_score = 0
+	
+				for adjacent in adjacencies:
+					var target = adjacent.occupant
+					if target != null and target.owned_by == card.owned_by:
+						damage_score += Globals.calculate_damage(card, [tile.x, tile.y], adjacent.occupant, [adjacent.x, adjacent.y])
+				
+				var pattern_score = 0
+				if best != null:
+					pattern_score = len($Board.check_sudoku_patterns(best)) * Globals.SUDOKU_PATTERN_POINT_BONUS
+					
+				print("P=" + str(pattern_score) + " D=" + str(damage_score))
+				var score = max(damage_score, pattern_score)
+				if score > best_score:
+					best_score = score
+					best = tile
+	
+	return best
 
 #############
 # Pick the best move based on "how many cards do we overpower?"

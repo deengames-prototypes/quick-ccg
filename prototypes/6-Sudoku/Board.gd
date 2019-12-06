@@ -81,7 +81,6 @@ func _on_tile_occupied(tile):
 				target.owned_by = me.owned_by
 				target.recolour_to_owner()
 				self.emit_signal("on_tile_capture", me.owned_by)
-				#check_and_emit_sudoku_points(adjacent)
 			
 			if Features.CARD_POWERS:
 				if me.power == "Fire":
@@ -107,22 +106,32 @@ func _on_tile_occupied(tile):
 					me.refresh()
 
 func check_and_emit_sudoku_points(tile):
+	var patterns = check_sudoku_patterns(tile)
+	for pattern in patterns:
+		self.emit_signal('made_sudoku_pattern', pattern["owner"], pattern["pattern"])
+		
+########## Returns a bunch of objects for each match, eg. { owner: player, pattern: row }
+func check_sudoku_patterns(tile):
+	var to_return = []
+	
 	if Features.SUDOKU_BONUSES:
 		# there's always a horizontal row including tile
 		var min_x = 3 * (tile.x / 3)
 		
-		if _owner_at(min_x, tile.y) == tile.occupant.owned_by and \
-			_owner_at(min_x + 1, tile.y) == tile.occupant.owned_by and \
-			_owner_at(min_x + 2, tile.y) == tile.occupant.owned_by:
-				self.emit_signal('made_sudoku_pattern', tile.occupant.owned_by, 'row')
-				print(tile.occupant.owned_by + " captured ROW at min_x=" + str(min_x))
+		if _owner_at(min_x, tile.y) == Globals.turn and \
+			_owner_at(min_x + 1, tile.y) == Globals.turn and \
+			_owner_at(min_x + 2, tile.y) == Globals.turn:
+				to_return.append({"owner": Globals.turn, "pattern": 'row'})
+				print(Globals.turn + " captured ROW at min_x=" + str(min_x))
 				
 		# there's always a vertical row including tile
 		var min_y = 3 * (tile.y / 3)
-		if _owner_at(tile.x, min_y) == tile.occupant.owned_by and \
-			_owner_at(tile.x, min_y + 1) == tile.occupant.owned_by and \
-			_owner_at(tile.x, min_y + 2) == tile.occupant.owned_by:
-				self.emit_signal('made_sudoku_pattern', tile.occupant.owned_by, 'column')
-				print(tile.occupant.owned_by + " captured COLUMN at min_y=" + str(min_y))
+		if _owner_at(tile.x, min_y) == Globals.turn and \
+			_owner_at(tile.x, min_y + 1) == Globals.turn and \
+			_owner_at(tile.x, min_y + 2) == Globals.turn:
+				to_return.append({"owner": Globals.turn, "pattern": 'column'})
+				print(Globals.turn + " captured COLUMN at min_y=" + str(min_y))
 		# there may be a diagonal including tile. fuggedaboudit.
 		pass
+	
+	return to_return
