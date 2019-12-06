@@ -6,10 +6,10 @@ var _player_card
 
 var _player_points = 0
 var _ai_points = 0
-var _turn = "Player"
+var _turn = "AI"
 
 func _ready():
-	_turn = "Player"
+	_turn = "AI"
 	$PlayerDeck.set_cards(Globals.player_hand)
 	$PlayerDeck.own_cards("Player")
 	
@@ -28,6 +28,8 @@ func _ready():
 			$Board.connect("made_sudoku_pattern", self, "_on_sudoku_pattern")
 	else:
 		$ScoreLabel.visible = false
+		
+	_ai_do_something()
 	
 func _on_player_card_select(card):
 	_player_card = card
