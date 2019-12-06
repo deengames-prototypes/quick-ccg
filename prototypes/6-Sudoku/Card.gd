@@ -36,7 +36,7 @@ func refresh():
 		$Label.text = str(defense)
 	
 	# Update powers (extra-life disappears on use)
-	if "power" in self.data and self.data["power"] != null:
+	if Features.CARD_POWERS and "power" in self.data and self.data["power"] != null:
 		self.power = self.data["power"]
 		$Power.texture = load("res://assets/" + self.power + ".png")
 		$Power.visible = true

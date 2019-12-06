@@ -56,24 +56,25 @@ func _on_tile_occupied(tile):
 				target.owned_by = me.owned_by
 				target.recolour_to_owner()
 			
-			if me.power == "Fire":
-				me.defense -= 1
-				me.data.defense -= 1
-				me.refresh()
-			
-			if me.power == "Virus":
-				target.affinity = me.affinity
-				target.data.affinity = me.affinity
-				target.refresh()
-			
-			if target.power == "ExtraLife":
-				target.power = null
-				target.data.power = null
-				target.owned_by = original_owner
-				target.recolour_to_owner()
-				target.refresh()
-			
-			if target.power == "Diseased":
-				me.affinity = target.affinity
-				me.data.affinity = target.affinity
-				me.refresh()
+			if Features.CARD_POWERS:
+				if me.power == "Fire":
+					me.defense -= 1
+					me.data.defense -= 1
+					me.refresh()
+				
+				if me.power == "Virus":
+					target.affinity = me.affinity
+					target.data.affinity = me.affinity
+					target.refresh()
+				
+				if target.power == "ExtraLife":
+					target.power = null
+					target.data.power = null
+					target.owned_by = original_owner
+					target.recolour_to_owner()
+					target.refresh()
+				
+				if target.power == "Diseased":
+					me.affinity = target.affinity
+					me.data.affinity = target.affinity
+					me.refresh()

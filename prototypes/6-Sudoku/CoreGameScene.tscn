@@ -67,9 +67,8 @@ position = Vector2( 368.535, 520.071 )
 texture = ExtResource( 5 )
 
 [node name="EndGame" type="ColorRect" parent="."]
-visible = false
 margin_right = 600.0
-margin_bottom = 544.0
+margin_bottom = 700.0
 color = Color( 0, 0, 0, 0.752941 )
 
 [node name="Label" type="Label" parent="EndGame"]

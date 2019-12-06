@@ -79,7 +79,8 @@ func _ready():
 # This includes applying powers.
 func instance_card(blueprint):
 	var instance = parse_json(to_json(blueprint)) # cheap way to copy it
-	if randf() <= CARD_POWER_PROBABILITY:
+	
+	if Features.CARD_POWERS and randf() <= CARD_POWER_PROBABILITY:
 		var power = Features.AVAILABLE_POWERS[randi() % len(Features.AVAILABLE_POWERS)]
 		instance["power"] = power
 		
@@ -120,10 +121,10 @@ func calculate_damage(attacker_card, attacker_coordinates, defender_card, defend
 		attack_value = attacker_card.defense
 		defend_value = defender_card.defense
 	
-	if attacker_card.power == "Bomb":
+	if Features.CARD_POWERS and attacker_card.power == "Bomb":
 		attack_value = 999
 		
-	if defender_card.power == "Shield":
+	if Features.CARD_POWERS and defender_card.power == "Shield":
 		defend_value = 998 # can be beaten by bomb
 		
 	var damage_multiplier = affinity_compare(attacker_card.affinity, defender_card.affinity)

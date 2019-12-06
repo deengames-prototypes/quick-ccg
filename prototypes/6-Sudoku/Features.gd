@@ -4,7 +4,7 @@ extends Node
 const FOUR_DIRECTIONAL_CARDS = false
 const UPGRADE_CARDS = false
 const LEVEL_UP = false
-const CARD_POWERS = true
+const CARD_POWERS = false
 
 # available powers: bomb, shield, fire, extra life, virus, diseased
 const AVAILABLE_POWERS = ["Bomb", "Shield", "Fire", "ExtraLife", "Virus", "Diseased"]
