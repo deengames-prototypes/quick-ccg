@@ -46,31 +46,7 @@ func _ai_do_something():
 	### rare crash: we have no cards
 	if len($AiDeck.tiles) > 0:
 		var random_pick = $AiDeck.tiles[randi() % len($AiDeck.tiles)]
-		var best = null
-		
-		# x% chance of placing on a random tile
-		if randf() <= RANDOM_MOVE_PROBABILITY:
-			best = $Board.tiles[randi() % len($Board.tiles)]
-			while best.occupant != null:
-				best = $Board.tiles[randi() % len($Board.tiles)]
-		else:
-			# Random card, place best move
-			var best_score = -1 # score of zero is possible, still should pick it if it's the best move
-			
-			for tile in $Board.tiles:
-				if tile.occupant == null:
-					# empty tile, look at adjacencies to calculate number of wins
-					var adjacencies = $Board.get_adjacencies(tile)
-					var total_score = 0
-		
-					for adjacent in adjacencies:
-						var target = adjacent.occupant
-						if target != null and target.owned_by == random_pick.owned_by:
-							total_score += Globals.calculate_damage(random_pick, [tile.x, tile.y], adjacent.occupant, [adjacent.x, adjacent.y])
-					
-					if total_score > best_score:
-						best_score = total_score
-						best = tile
+		var best = _ai_pick_best_by_damage(random_pick)
 		
 		$AiDeck.remove_card(random_pick)
 		best.set_occupant(random_pick)
@@ -133,3 +109,35 @@ func _on_sudoku_pattern(who, pattern_type):
 
 func _update_score_display():
 	$ScoreLabel.text = "Player: " + str(_player_points) + "\nAI: " + str(_ai_points)
+
+#############
+# Pick the best move based on "how many cards do we overpower?"
+#############
+func _ai_pick_best_by_damage(card):
+	var best = null
+		
+	# x% chance of placing on a random tile
+	if randf() <= RANDOM_MOVE_PROBABILITY:
+		best = $Board.tiles[randi() % len($Board.tiles)]
+		while best.occupant != null:
+			best = $Board.tiles[randi() % len($Board.tiles)]
+	else:
+		# Random card, place best move
+		var best_score = -1 # score of zero is possible, still should pick it if it's the best move
+		
+		for tile in $Board.tiles:
+			if tile.occupant == null:
+				# empty tile, look at adjacencies to calculate number of wins
+				var adjacencies = $Board.get_adjacencies(tile)
+				var total_score = 0
+	
+				for adjacent in adjacencies:
+					var target = adjacent.occupant
+					if target != null and target.owned_by == card.owned_by:
+						total_score += Globals.calculate_damage(card, [tile.x, tile.y], adjacent.occupant, [adjacent.x, adjacent.y])
+				
+				if total_score > best_score:
+					best_score = total_score
+					best = tile
+	
+	return best
