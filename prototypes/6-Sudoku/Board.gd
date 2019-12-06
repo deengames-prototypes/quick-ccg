@@ -3,6 +3,7 @@ extends Node2D
 const BoardTile = preload("res://BoardTile.tscn")
 
 signal on_tile_click
+signal on_tile_capture
 
 export(int) var tiles_wide = 4
 export(int) var tiles_high = 4
@@ -55,6 +56,7 @@ func _on_tile_occupied(tile):
 			if damage > 0:
 				target.owned_by = me.owned_by
 				target.recolour_to_owner()
+				self.emit_signal("on_tile_capture", me.owned_by)
 			
 			if Features.CARD_POWERS:
 				if me.power == "Fire":

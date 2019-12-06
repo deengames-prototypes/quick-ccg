@@ -4,6 +4,9 @@ const RANDOM_MOVE_PROBABILITY = 0.25
 
 var _player_card
 
+var _player_points = 0
+var _ai_points = 0
+
 func _ready():
 	$PlayerDeck.set_cards(Globals.player_hand)
 	$PlayerDeck.own_cards("Player")
@@ -11,8 +14,15 @@ func _ready():
 	$AiDeck.set_cards(Globals.current_npc_deck)
 	$AiDeck.own_cards("AI")
 	$AiDeck.recolour_to_owner()
+	
 	$PlayerDeck.connect("card_selected", self, "_on_player_card_select")
 	$Board.connect("on_tile_click", self, "_on_player_tile_click")
+	
+	if Features.POINTS_ON_CAPTURE:
+		$NewsLabel.visible = true
+		$Board.connect("on_tile_capture", self, "_on_tile_captured")
+	else:
+		$NewsLabel.visible = false
 	
 func _on_player_card_select(card):
 	_player_card = card
@@ -110,3 +120,10 @@ func _check_for_game_over():
 	yield(get_tree().create_timer(2), "timeout")
 	get_tree().change_scene("res://MapScene.tscn")
 	
+func _on_tile_captured(captured_by):
+	if captured_by == "AI":
+		_ai_points += 1
+	else:
+		_player_points += 1
+	
+	$NewsLabel.text = "Player: " + str(_player_points) + "\nAI: " + str(_ai_points)

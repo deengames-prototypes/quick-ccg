@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://CoreGameScene.gd" type="Script" id=1]
 [ext_resource path="res://BattleDeck.tscn" type="PackedScene" id=2]
@@ -16,6 +16,10 @@ font_data = ExtResource( 4 )
 size = 72
 font_data = ExtResource( 4 )
 
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 4 )
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -28,6 +32,7 @@ position = Vector2( 192, 64 )
 position = Vector2( 544, 0 )
 
 [node name="Notice" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, 110 )
 
 [node name="Label" type="Label" parent="Notice"]
@@ -67,6 +72,8 @@ position = Vector2( 368.535, 520.071 )
 texture = ExtResource( 5 )
 
 [node name="EndGame" type="ColorRect" parent="."]
+editor/display_folded = true
+visible = false
 margin_right = 600.0
 margin_bottom = 700.0
 color = Color( 0, 0, 0, 0.752941 )
@@ -90,3 +97,13 @@ margin_top = -20.0
 margin_right = 66.0
 margin_bottom = -6.0
 text = "Acquired:"
+
+[node name="NewsLabel" type="Label" parent="."]
+margin_left = 70.0
+margin_right = 538.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 3 )
+text = "Player: 0
+AI: 0"
+align = 1
+valign = 1
