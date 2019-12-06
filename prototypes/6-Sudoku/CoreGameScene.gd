@@ -74,24 +74,13 @@ func _ai_do_something():
 	_check_for_game_over()
 
 func _check_for_game_over():
-	var player_score = 0
-	var ai_score = 0
+	var winner_text = ""
 	
 	for tile in $Board.tiles:
-		var occupier = tile.occupant
-		if occupier == null: # unoccupied
-			return
-			
-		if occupier.owned_by == "AI":
-			ai_score += 1
-		elif occupier.owned_by == "Player":
-			player_score += 1
-		else:
-			# ???
-			return
+		if tile.occupant == null: # unoccupied
+			return # empty tile, game s'not over yet
 	
-	var winner_text = ""
-	if player_score > ai_score:
+	if _player_points > _ai_points:
 		winner_text = "You win!"
 		
 		if Features.LEVEL_UP:
@@ -105,11 +94,11 @@ func _check_for_game_over():
 		var spoil = Globals.current_npc_deck[randi() % len(Globals.current_npc_deck)]
 		$EndGame/Spoils.set_data(spoil)
 		Globals.player_deck.append(spoil)
-	elif player_score == ai_score:
+	elif _player_points == _ai_points:
 		winner_text = "Draw!"
 		Globals.npc_fighting = null # can rematch
 		$EndGame/Spoils.visible = false
-	elif ai_score > player_score:
+	elif _ai_points > _player_points:
 		winner_text = "You lose!"
 		Globals.npc_fighting = null # can rematch
 		$EndGame/Spoils.visible = false

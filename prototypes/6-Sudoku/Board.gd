@@ -27,8 +27,8 @@ func _ready():
 				
 			tile.position = Vector2((tile.x * Globals.CARD_WIDTH), (tile.y * Globals.CARD_HEIGHT))
 			
-			#tile.get_node("ColorRect2")
-			tile.modulate = Color(red, green, 1)
+			tile.get_node("ColorRect2").self_modulate = Color(red, green, 1)
+			#tile.modulate = Color(red, green, 1)
 				
 			tile.connect("on_click", self, "_on_tile_click", [tile])
 			tile.connect("occupied", self, "_on_tile_occupied", [tile])
