@@ -74,6 +74,7 @@ func _ai_do_something():
 		
 		$AiDeck.remove_card(random_pick)
 		best.set_occupant(random_pick)
+		$Board.check_and_emit_sudoku_points(best)
 	
 	_check_for_game_over()
 
@@ -119,7 +120,7 @@ func _on_tile_captured(captured_by):
 	else:
 		_player_points += 1
 	
-	$ScoreLabel.text = "Player: " + str(_player_points) + "\nAI: " + str(_ai_points)
+	_update_score_display()
 
 func _on_sudoku_pattern(who, pattern_type):
 	$NewsLabel.text = who + " bonus: " + pattern_type + " pattern! "
@@ -127,3 +128,8 @@ func _on_sudoku_pattern(who, pattern_type):
 		_ai_points += Globals.SUDOKU_PATTERN_POINT_BONUS
 	else:
 		_player_points += Globals.SUDOKU_PATTERN_POINT_BONUS
+	
+	_update_score_display()
+
+func _update_score_display():
+	$ScoreLabel.text = "Player: " + str(_player_points) + "\nAI: " + str(_ai_points)
