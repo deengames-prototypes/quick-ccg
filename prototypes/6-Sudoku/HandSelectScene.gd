@@ -23,6 +23,8 @@ func _ready():
 			_show_unselected(c)
 			
 		c.connect("on_click", self, "_toggle_hand", [c])
+	
+	_update_label()
 
 func _show_selected(card):
 	card.get_node("ColorRect").color.a = 0.5
@@ -42,7 +44,7 @@ func _toggle_hand(card):
 		Globals.player_hand.append(data)
 		_show_selected(card)
 		
-	$Label.text = "Hand: " + str(len(Globals.player_hand)) + "/" + str(Globals.PLAYER_HAND_SIZE)
+	_update_label()
 
 func _unhandled_input(event):
 	if Input.is_key_pressed(KEY_ESCAPE):
@@ -50,3 +52,6 @@ func _unhandled_input(event):
 
 func _on_UpgradeButton_pressed():
 	get_tree().change_scene("res://UpgradeCardsScene.tscn")
+
+func _update_label():
+	$Label.text = "Hand: " + str(len(Globals.player_hand)) + "/" + str(Globals.PLAYER_HAND_SIZE)

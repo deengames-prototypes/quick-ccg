@@ -1,16 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://CoreGameScene.gd" type="Script" id=1]
 [ext_resource path="res://BattleDeck.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Board.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ZCOOLXiaoWei-Regular.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://triangle.png" type="Texture" id=5]
-[ext_resource path="res://circle.png" type="Texture" id=6]
-[ext_resource path="res://square.png" type="Texture" id=7]
-[ext_resource path="res://Card.tscn" type="PackedScene" id=8]
-
-[sub_resource type="DynamicFont" id=1]
-font_data = ExtResource( 4 )
+[ext_resource path="res://Card.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=2]
 size = 72
@@ -29,47 +23,7 @@ script = ExtResource( 1 )
 position = Vector2( 192, 64 )
 
 [node name="AiDeck" parent="." instance=ExtResource( 2 )]
-position = Vector2( 544, 0 )
-
-[node name="Notice" type="Node2D" parent="."]
-editor/display_folded = true
-position = Vector2( 0, 110 )
-
-[node name="Label" type="Label" parent="Notice"]
-margin_left = 308.951
-margin_top = 428.67
-margin_right = 348.951
-margin_bottom = 485.67
-custom_fonts/font = SubResource( 1 )
-text = "beats
-
-beats
-
-beats"
-
-[node name="Sprite" type="Sprite" parent="Notice"]
-position = Vector2( 281.44, 437.673 )
-texture = ExtResource( 5 )
-
-[node name="Sprite3" type="Sprite" parent="Notice"]
-position = Vector2( 282.638, 478.986 )
-texture = ExtResource( 6 )
-
-[node name="Sprite6" type="Sprite" parent="Notice"]
-position = Vector2( 281.44, 520.299 )
-texture = ExtResource( 7 )
-
-[node name="Sprite2" type="Sprite" parent="Notice"]
-position = Vector2( 368.535, 437.445 )
-texture = ExtResource( 6 )
-
-[node name="Sprite4" type="Sprite" parent="Notice"]
-position = Vector2( 369.732, 478.758 )
-texture = ExtResource( 7 )
-
-[node name="Sprite5" type="Sprite" parent="Notice"]
-position = Vector2( 368.535, 520.071 )
-texture = ExtResource( 5 )
+position = Vector2( 600, 0 )
 
 [node name="EndGame" type="ColorRect" parent="."]
 editor/display_folded = true
@@ -87,7 +41,7 @@ text = "Game Over!
 align = 1
 valign = 1
 
-[node name="Spoils" parent="EndGame" instance=ExtResource( 8 )]
+[node name="Spoils" parent="EndGame" instance=ExtResource( 5 )]
 position = Vector2( 257.755, 375.177 )
 scale = Vector2( 2, 2 )
 
@@ -99,9 +53,8 @@ margin_bottom = -6.0
 text = "Acquired:"
 
 [node name="NewsLabel" type="Label" parent="."]
-margin_left = 70.0
-margin_right = 538.0
-margin_bottom = 14.0
+margin_right = 728.0
+margin_bottom = 53.0
 custom_fonts/font = SubResource( 3 )
 text = "Player: 0
 AI: 0"

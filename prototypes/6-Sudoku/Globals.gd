@@ -1,9 +1,9 @@
 extends Node
 
 const MAX_VALUE = 6 # on spawn, not from upgrades
-const UNIVERSE_SIZE = 50 # 50 cards in all
-const PLAYER_DECK_SIZE = 20
-const PLAYER_HAND_SIZE = 8
+const UNIVERSE_SIZE = 60 # 50 cards in all
+const PLAYER_DECK_SIZE = 30
+const PLAYER_HAND_SIZE = 18
 const NUM_NPCS = 5
 const CARD_POWER_PROBABILITY = 0.5
 
@@ -12,8 +12,7 @@ const BATTLES_TO_LEVEL_UP = 2 # unused
 const POINTS_PER_LEVEL_UP = 3 # unused
 
 const CARD_WIDTH = 64
-const CARD_HEIGHT = 84
-
+const CARD_HEIGHT = 74
 
 var TYPES = ["Triangle", "Circle", "Square"]
 
@@ -53,8 +52,8 @@ func _ready():
 	for i in range(NUM_NPCS):
 		var deck = []
 		
-		for j in range(8):
-		# dupes are fine
+		for j in range(Globals.PLAYER_HAND_SIZE):
+			# dupes are fine
 			var next = all_cards[randi() % len(all_cards)]
 			var card = instance_card(next)
 			deck.append(card)
@@ -65,6 +64,7 @@ func _ready():
 			var random_card = deck[randi() % len(deck)]
 			random_card.defense += 1
 			
+		print(str(len(deck)) + " cards in NPC deck")
 		npc_decks.append(deck)
 	
 	for i in range(PLAYER_DECK_SIZE):

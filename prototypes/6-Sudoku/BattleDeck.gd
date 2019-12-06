@@ -3,7 +3,7 @@ extends Node2D
 const Card = preload("res://Card.tscn")
 
 signal card_selected
-export var size = 8
+export var size = Globals.PLAYER_HAND_SIZE
 
 var selected # Card
 var tiles = [] # should be called "cards" - Card.instance()
@@ -14,7 +14,7 @@ func set_cards(cards):
 		card_data = parse_json(to_json(card_data)) # cheap way to copy it
 		var card = Card.instance()
 		card.set_data(card_data)
-		card.position = Vector2(0, i * Globals.CARD_HEIGHT)
+		card.position = Vector2((i / 9) * Globals.CARD_WIDTH, (i % 9) * Globals.CARD_HEIGHT)
 		# can send "card" (data) instead
 		card.connect("on_click", self, "_set_selected_card", [card])
 		add_child(card)

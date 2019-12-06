@@ -26,8 +26,8 @@ Globals="*res://Globals.gd"
 
 [display]
 
-window/size/width=600
-window/size/height=672
+window/size/width=728
+window/size/height=728
 
 [rendering]
 

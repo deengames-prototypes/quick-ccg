@@ -1,12 +1,13 @@
 extends Node2D
 
 const BoardTile = preload("res://BoardTile.tscn")
+const PADDING = 16
 
 signal on_tile_click
 signal on_tile_capture
 
-export(int) var tiles_wide = 4
-export(int) var tiles_high = 4
+export(int) var tiles_wide = 6
+export(int) var tiles_high = 6
 
 var tiles = [] # BoardTile.instance
 
@@ -17,7 +18,18 @@ func _ready():
 			var tile = BoardTile.instance()
 			tile.x = x
 			tile.y = y
-			tile.position = Vector2(tile.x * Globals.CARD_WIDTH, tile.y * Globals.CARD_HEIGHT)
+			
+			var x_padding = 0
+			var y_padding = 0
+			if tile.x >= 3:
+				x_padding = PADDING
+			if tile.y >= 3:
+				y_padding = PADDING
+				
+			tile.position = Vector2(
+				(tile.x * Globals.CARD_WIDTH) + x_padding,
+				(tile.y * Globals.CARD_HEIGHT) + y_padding)
+				
 			tile.connect("on_click", self, "_on_tile_click", [tile])
 			tile.connect("occupied", self, "_on_tile_occupied", [tile])
 			tiles.append(tile)
