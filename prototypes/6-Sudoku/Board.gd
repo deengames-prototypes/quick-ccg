@@ -1,7 +1,6 @@
 extends Node2D
 
 const BoardTile = preload("res://BoardTile.tscn")
-const PADDING = 16
 
 signal on_tile_click
 signal on_tile_capture
@@ -19,16 +18,17 @@ func _ready():
 			tile.x = x
 			tile.y = y
 			
-			var x_padding = 0
-			var y_padding = 0
+			var green = 1
+			var red = 1
 			if tile.x >= 3:
-				x_padding = PADDING
+				red = 0.5
 			if tile.y >= 3:
-				y_padding = PADDING
+				green = 0.5
 				
-			tile.position = Vector2(
-				(tile.x * Globals.CARD_WIDTH) + x_padding,
-				(tile.y * Globals.CARD_HEIGHT) + y_padding)
+			tile.position = Vector2((tile.x * Globals.CARD_WIDTH), (tile.y * Globals.CARD_HEIGHT))
+			
+			#tile.get_node("ColorRect2")
+			tile.modulate = Color(red, green, 1)
 				
 			tile.connect("on_click", self, "_on_tile_click", [tile])
 			tile.connect("occupied", self, "_on_tile_occupied", [tile])
