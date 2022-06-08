@@ -43,7 +43,7 @@ func _ready():
 		var defense = (randi() % MAX_VALUE) + 1
 		
 		var four_values = []
-		for i in range(4):
+		for j in range(4):
 			four_values.append((randi() % MAX_VALUE) + 1)
 		
 		var affinity = TYPES[randi() % len(TYPES)]

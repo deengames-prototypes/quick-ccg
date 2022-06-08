@@ -1,7 +1,7 @@
 extends Button
 
-var Data = preload("res://Prototype/Data.gd").new()
-const Entity = preload("res://Prototype/Entity.tscn")
+var Data = preload("res://Data.gd").new()
+const Entity = preload("res://Entity.tscn")
 
 var data # dictionary eg. {"up": 8, ...}
 var slot_owner # Turn.Player or Turn.Opponent

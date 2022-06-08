@@ -10,23 +10,18 @@ config_version=4
 
 _global_script_classes=[  ]
 _global_script_class_icons={
-
 }
 
 [application]
 
 config/name="Quick CCG (Prototype)"
-run/main_scene="res://Prototype/CoreGameScene.tscn"
+run/main_scene="res://CoreGameScene.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Globals="*res://Prototype/Globals.gd"
+Globals="*res://Globals.gd"
 
 [display]
 
 window/size/height=650
-
-[rendering]
-
-environment/default_environment="res://default_env.tres"

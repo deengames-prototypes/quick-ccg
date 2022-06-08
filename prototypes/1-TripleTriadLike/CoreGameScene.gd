@@ -1,7 +1,7 @@
 extends Node2D
 
-var Data = preload("res://Prototype/Data.gd").new()
-var Turn = preload("res://Prototype/Turn.gd")
+var Data = preload("res://Data.gd").new()
+var Turn = preload("res://Turn.gd")
 
 const NUM_CARDS = 5
 
